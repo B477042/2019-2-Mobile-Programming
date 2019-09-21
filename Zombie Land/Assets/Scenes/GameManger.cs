@@ -9,22 +9,22 @@ public class GameManger : MonoBehaviour
     {
         get
         {
-            if (instance == null)
-                instance = new GameManger();
             return instance;
         }
     }
 
     
-    private GameManger()
-    {
-       
-    }
-
+   
     private void Awake()
     {
-        
-       
+        if(instance!=null)
+        {
+            DestroyImmediate(gameObject);
+            return;
+        }
+        instance = this;
+       // Debug.LogWarning("Game manger instance Called");
+
         DontDestroyOnLoad(this);
     }
 

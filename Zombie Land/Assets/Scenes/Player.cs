@@ -4,21 +4,14 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    private Player() { }
+   
 
     private static Player instance=null;
     public static Player Instance
     {
         get
         {
-
-            //if (instance == null)
-            //{
-            //    Debug.Log("Player Instance called");
-            //    instance = new Player();
-
-            //}
-
+           
             return instance;
         }
 
@@ -29,6 +22,12 @@ public class Player : MonoBehaviour
 
     private void Awake()
     {
+        if(instance!=null)
+        {
+            DestroyImmediate(gameObject);
+            return;
+        }
+       // Debug.LogWarning("Player Instance Created");
         instance = this;
         DontDestroyOnLoad(this);
     }
