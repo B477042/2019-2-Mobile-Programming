@@ -38,12 +38,12 @@ public class GameManger : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        FindCloseEnermy();
+        FindNearestEnermy();
     }
 
 
 
-    void FindCloseEnermy()
+    void FindNearestEnermy()
     {
         //Set Index Node to Point Enermies(Linked List First Node)
         LinkedListNode<Enermy> indexNode = Enermy.LEnermies.First;
@@ -51,35 +51,71 @@ public class GameManger : MonoBehaviour
         float minDistance = 0.0f;
 
        
-
-        //find Close Node. If Node index is null, break loop
         while(indexNode!=null)
         {
-            //if linkedNode is First Node of List
-            if(indexNode==Enermy.LEnermies.First)
+
+            if(closeNode==null)
             {
-                minDistance = Player.GetPlayer().EstimateDistance(Player.GetPlayer(), indexNode.Value);
-                Debug.Log("First Distanc is  "+ minDistance);
-                //Save Close Enermy Node
+                indexNode.Value.ChangeColorToNormal();
+                minDistance =Vector3.Distance(Player.GetPlayer().transform.position, indexNode.Value.transform.position);
+                Debug.Log(minDistance);
                 closeNode = indexNode;
-                //move Node Index To Next Node       
                 indexNode = indexNode.Next;
             }
-            //Calculate Distance
-            float tempDistance = Player.GetPlayer().EstimateDistance(Player.GetPlayer(), indexNode.Value);
-            if (tempDistance < minDistance)
+            else
             {
-                minDistance = tempDistance;
-                //Save Close Enermy Node
-                closeNode = indexNode;
+                float tempDistance=Vector3.Distance(Player.GetPlayer().transform.position, indexNode.Value.transform.position);
+                if(tempDistance<minDistance)
+                {
+                    closeNode.Value.ChangeColorToNormal();
+                    minDistance = tempDistance;
+                    Debug.Log(minDistance);
+                    closeNode = indexNode;
+                    indexNode = indexNode.Next;
+                }
             }
 
-            //move Node Index To Next Node
-            indexNode = indexNode.Next;
-            
         }
-
         closeNode.Value.ChangeColorToClose();
+
+
+        ////find N Node. If Node index is null, break loop
+        //while(indexNode!=null)
+        //{
+        //    //if linkedNode is First Node of List
+        //    if(indexNode==Enermy.LEnermies.First)
+        //    {
+        //        indexNode.Value.ChangeColorToNormal();
+        //        // minDistance = Player.GetPlayer().EstimateDistance(Player.GetPlayer(), indexNode.Value);
+        //        minDistance = Vector3.Distance(Player.GetPlayer().transform.position, indexNode.Value.transform.position);
+        //        Debug.Log("First Distanc is  "+ minDistance);
+        //        //Save Close Enermy Node
+        //        closeNode = indexNode;
+        //        //move Node Index To Next Node       
+        //        indexNode = indexNode.Next;
+        //        continue;
+        //    }
+        //    //Calculate Distance
+        //    // float tempDistance = Player.GetPlayer().EstimateDistance(Player.GetPlayer(), indexNode.Value);
+        //  float   tempDistance = Vector3.Distance(Player.GetPlayer().transform.position, indexNode.Value.transform.position);
+        //    //
+        //    if (tempDistance < minDistance)
+        //    {
+                
+        //        minDistance = tempDistance;
+        //        //Change Color to Normal. 
+        //        closeNode.Value.ChangeColorToNormal();
+        //        //Save Close Enermy Node
+        //        closeNode = indexNode;
+        //    }
+
+        //    //move Node Index To Next Node
+        //    indexNode = indexNode.Next;
+            
+        //}
+
+        
+    //    closeNode.Value.ChangeColorToClose();
     }
 
     void InitializeEnermyColor()

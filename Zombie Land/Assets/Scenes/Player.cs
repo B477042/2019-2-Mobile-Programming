@@ -7,6 +7,7 @@ public class Player : MonoBehaviour
    
 
     private static Player instance=null;
+
     public static Player Instance
     {
         get
@@ -38,6 +39,7 @@ public class Player : MonoBehaviour
     void Start()
     {
         this.GetComponent<Renderer>().material.color = Color.green;
+    
 
       //  GameManger test;
     }
@@ -63,8 +65,9 @@ public class Player : MonoBehaviour
 
         Vector3 playerPos = From.transform.position;
         Vector3 targetPos = To.transform.position;
-        result = Mathf.Sqrt(
-            Mathf.Abs(playerPos.x  -  targetPos.x)+     Mathf.Abs(playerPos.y - targetPos.y)+     Mathf.Abs(playerPos.z  -  targetPos.z)   );
+        //result = Mathf.Sqrt(
+        //    Mathf.Abs(playerPos.x  -  targetPos.x)+     Mathf.Abs(playerPos.y - targetPos.y)+     Mathf.Abs(playerPos.z  -  targetPos.z)   );
+       // result = playerPos - targetPos;
         Debug.Log("result Distance : " + result);
         return result;
     }
