@@ -7,7 +7,7 @@ public class BlockList : MonoBehaviour
     
    public  enum  BlocksName
     {
-        Cubes=0,
+        Cube=0,
         LeftStair,
         LStick,
         ReverseLStick,
