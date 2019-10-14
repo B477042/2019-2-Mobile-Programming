@@ -285,8 +285,9 @@ GameObject:
   - component: {fileID: 7848550486132296971}
   - component: {fileID: 7848550486132296970}
   - component: {fileID: 7848550486132296969}
+  - component: {fileID: 2572002473531074809}
   m_Layer: 0
-  m_Name: Cube 1
+  m_Name: Yo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -299,7 +300,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7848550486132296968}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 10.346434, y: 1.6331022, z: -5.885741}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -365,5 +366,18 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 1, y: 1, z: 3.021124}
+  m_Center: {x: 0, y: 0, z: -0.014540672}
+--- !u!65 &2572002473531074809
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7848550486132296968}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 0.94724894, z: 1}
+  m_Center: {x: 0, y: 0.97362447, z: 0}
