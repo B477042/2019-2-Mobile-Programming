@@ -35,8 +35,6 @@ public class BlockDic : MonoBehaviour
             return;
         }
         instance = this;
-        // Debug.LogWarning("Game manger instance Called");
-
         DontDestroyOnLoad(this);
     }
 

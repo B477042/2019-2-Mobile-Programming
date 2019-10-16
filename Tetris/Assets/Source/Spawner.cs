@@ -6,11 +6,21 @@ public class Spawner : MonoBehaviour
 {
     //Assets / Scenes / Cube.prefab
 
-    public GameObject block = null;
+    
+
+   // public GameObject block = null;
     //블럭이 내려올 위치를 저장하는 property
     private Vector3 DropPoint { get { return new Vector3(0.0f, 10.0f, 0.0f); } }
 
-    private Vector3 droppingSpeed = Vector3.down * 0.05f;
+
+    private static GameManger instance = null;
+    public static GameManger Instance
+    {
+        get
+        {
+            return instance;
+        }
+    }
 
 
     private void Awake()
@@ -29,17 +39,21 @@ public class Spawner : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        block = SpawnNewBlocks(BlocksEnum.LStick);
+        
 
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(block!=null)
-        if(block.transform.position.y>0)
-        block.transform.position += /*block.transform.position*/  droppingSpeed;
-        
+       // if (block != null) return;
+        //if(block.transform.position.y>0)
+        //block.transform.position += /*block.transform.position*/  droppingSpeed;
+        if(Controller.IsControlling)
+       Controller.TakeControl(SpawnNewBlocks(BlocksEnum.LeftStair));
+       
+
+
     }
 
     public GameObject SpawnNewBlocks(BlocksEnum BlockName)
@@ -49,8 +63,8 @@ public class Spawner : MonoBehaviour
         newBlocks.transform.position =DropPoint;
         return newBlocks;
         
-            
     }
-    
+
+ 
 
 }

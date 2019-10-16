@@ -104,7 +104,7 @@ GameObject:
   - component: {fileID: 6510456884269966671}
   - component: {fileID: 8619534121690738488}
   m_Layer: 0
-  m_Name: ReverseLStick (2)
+  m_Name: ReverseLStick
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -195,6 +195,7 @@ GameObject:
   - component: {fileID: 610032045358758185}
   - component: {fileID: 2475659331975508258}
   - component: {fileID: 5833823631621075672}
+  - component: {fileID: 3782906152188382716}
   m_Layer: 0
   m_Name: ReverseLStick
   m_TagString: Untagged
@@ -290,6 +291,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: -1}
+--- !u!114 &3782906152188382716
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3201613695779001895}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0b2a4bf57163e64eac56c613dffb210, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8162097645692416104
 GameObject:
   m_ObjectHideFlags: 0

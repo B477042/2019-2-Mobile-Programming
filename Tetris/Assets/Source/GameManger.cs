@@ -2,11 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+//싱글턴으로
+//게임이 끝나는 조건
+//점수 현황
+//LineManger 호출해서 Line 검사하기
+
 public class GameManger : MonoBehaviour
 {
     private static GameManger instance = null;
-    public GameObject ControllingObject = null;
-
     public static GameManger Instance
     {
         get
@@ -25,9 +28,8 @@ public class GameManger : MonoBehaviour
             return;
         }
         instance = this;
-        // Debug.LogWarning("Game manger instance Called");
-
         DontDestroyOnLoad(this);
+        
     }
 
 
