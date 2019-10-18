@@ -14,32 +14,11 @@ using UnityEngine;
     };
 
 
-public class BlockDic : MonoBehaviour
+public  class BlockDic : MonoBehaviour
 {
-    private static BlockDic instance = null;
-    public static BlockDic Instance
-    {
-        get
-        {
-            return instance;
-        }
-    }
+    
 
-
-
-    private void Awake()
-    {
-        if (instance != null)
-        {
-            DestroyImmediate(gameObject);
-            return;
-        }
-        instance = this;
-        DontDestroyOnLoad(this);
-    }
-
-
-    public static Dictionary<BlocksEnum,string> Dic=new Dictionary<BlocksEnum, string>()
+    public static  Dictionary<BlocksEnum,string> Dic=new Dictionary<BlocksEnum, string>()
  {
      { BlocksEnum.Cube,"Cube"},
      {BlocksEnum.LeftStair,  "LeftStair"},

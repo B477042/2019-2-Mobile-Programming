@@ -2,11 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BlockConstructor : MonoBehaviour
+public class LineSpector : MonoBehaviour
 {
-
-
-
     // Start is called before the first frame update
     void Start()
     {
