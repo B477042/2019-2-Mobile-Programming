@@ -19,6 +19,9 @@ public class Controller : MonoBehaviour
     //밑으로 낙하하는 간격. 1.0f 시간 간격으로 낙하
      private float dropInterval = 1.0f;
      private float timer = 0.0f;
+
+    
+
     
     private static Controller instance = null;
     public static Controller  Instance
@@ -50,9 +53,11 @@ public class Controller : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+       
         if (controllingObject == null) return;
         timer += Time.deltaTime;
        // TestPrint();
+        InputProcess();
 
         //timer가 아직 interval이 되지 않았을 때 return
         if (timer < dropInterval) return;
@@ -74,9 +79,10 @@ public class Controller : MonoBehaviour
     //BlockConstructor에서 이 블럭이 바닥이나 다른 블럭에 닿았으니 컨트롤하지 못하게 제어권을 놓게 만든다
     //입력 인자로 받은 bool은 BlockConstructor에서 판단한 결과 값을 받아와서
     //닿았다=true면 작동하고, 안 닿았다 = false면 제어하게 둔다
+   
     private void ReleaseControl(bool bResult)
     {
-        if (!bResult) return;
+        if (!bResult) return;        
         controllingObject = null;
     }
     public void SpeedUp()
@@ -96,6 +102,32 @@ public class Controller : MonoBehaviour
             Debug.Log("자식들의 이름 " + (i + 1) + " : "+ controllingObject.transform.GetChild(i).gameObject.name);
         }
 
+    }
+    //입력을 처리한다
+    //좌우 이동, 회전
+    private void InputProcess()
+    {
+        if (!controllingObject) return;
+        if(Input.anyKeyDown)
+        {
+            if (Input.GetKeyDown(KeyCode.A))
+            {
+                movementComonent.MoveLeft();
+                return;
+            }
+
+             if (Input.GetKeyDown(KeyCode.D))
+            {
+                movementComonent.MoveRight();
+                return;
+            }
+             if (Input.GetKeyDown(KeyCode.W))
+            {
+                movementComonent.Rotate();
+                return;
+            }
+        }
+        
     }
     
 
