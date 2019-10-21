@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public enum EventList
+public enum EventType
 {
     //블럭이 바닥이나 다른 블럭과 닿았다
     BLOCK_ON_CONTACT = 0,
@@ -19,6 +19,9 @@ public enum EventList
 
 public class EventManger : MonoBehaviour
 {
+    public delegate void EventDelegate(EventType eventList, Component joinedComponent,object Params=null );
+    private Dictionary<EventType,>
+
   private static  EventManger instance = null;
    public static EventManger Instance { get { return instance; } }
     private void Awake()
@@ -32,6 +35,8 @@ public class EventManger : MonoBehaviour
         DontDestroyOnLoad(this);
 
     }
+    
+
 
     // Start is called before the first frame update
     void Start()

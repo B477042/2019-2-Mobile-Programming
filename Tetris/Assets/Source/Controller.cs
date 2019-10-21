@@ -9,7 +9,7 @@ public class Controller : MonoBehaviour
 {
 
     //지금 조종하는 block. property처리
-    static public GameObject controllingObject{get;set;}
+    public static  GameObject controllingObject{get;set;}
     //조종하는 객체의 BlockMovement를 가리키는 것
     private BlockMovement movementComonent = null;
     
@@ -19,6 +19,7 @@ public class Controller : MonoBehaviour
     //밑으로 낙하하는 간격. 1.0f 시간 간격으로 낙하
      private float dropInterval = 1.0f;
      private float timer = 0.0f;
+
 
     
 
@@ -80,9 +81,9 @@ public class Controller : MonoBehaviour
     //입력 인자로 받은 bool은 BlockConstructor에서 판단한 결과 값을 받아와서
     //닿았다=true면 작동하고, 안 닿았다 = false면 제어하게 둔다
    
-    private void ReleaseControl(bool bResult)
+    private void ReleaseControl()
     {
-        if (!bResult) return;        
+        if (!controllingObject) return;        
         controllingObject = null;
     }
     public void SpeedUp()

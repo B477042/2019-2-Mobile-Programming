@@ -1,11 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+  public delegate void BroadPrn();
 public class TestDeli : MonoBehaviour
 {
 
-    public delegate void BroadPrn();
+  
     public static BroadPrn notify;
 
     void Awake()
