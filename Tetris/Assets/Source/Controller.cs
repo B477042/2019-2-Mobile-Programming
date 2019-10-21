@@ -103,25 +103,27 @@ public class Controller : MonoBehaviour
         }
 
     }
-    //입력을 처리한다
-    //좌우 이동, 회전
-    private void InputProcess()
+   
+
+        //입력을 처리한다
+        //좌우 이동, 회전
+        private void InputProcess()
     {
         if (!controllingObject) return;
         if(Input.anyKeyDown)
         {
-            if (Input.GetKeyDown(KeyCode.A))
+            if (Input.GetKeyDown(KeyCode.LeftArrow))
             {
                 movementComonent.MoveLeft();
                 return;
             }
 
-             if (Input.GetKeyDown(KeyCode.D))
+             if (Input.GetKeyDown(KeyCode.RightArrow))
             {
                 movementComonent.MoveRight();
                 return;
             }
-             if (Input.GetKeyDown(KeyCode.W))
+             if (Input.GetKeyDown(KeyCode.UpArrow))
             {
                 movementComonent.Rotate();
                 return;

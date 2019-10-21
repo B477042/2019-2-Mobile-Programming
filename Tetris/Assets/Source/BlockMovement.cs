@@ -51,5 +51,9 @@ public class BlockMovement : MonoBehaviour
     {
        transform.Rotate(new Vector3(0.0f, 0.0f, 90.0f));
     }
-    
+    void OnTriggerEnter(Collider other)
+    {
+        Destroy(other.gameObject);
+    }
+
 }
