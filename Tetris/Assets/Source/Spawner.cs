@@ -48,13 +48,11 @@ public class Spawner : MonoBehaviour
         // if (block != null) return;
         //if(block.transform.position.y>0)
         //block.transform.position += /*block.transform.position*/  droppingSpeed;
-        if (Controller.controllingObject==null) 
+        if (Controller.Instance.controllingObject==null) 
         {
             
             ProductBlock();
-       
-
-         
+        
             //Controller.Instance.TakeControl(SpawnNewBlocks());
         }
 

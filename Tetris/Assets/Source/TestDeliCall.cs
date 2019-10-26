@@ -4,14 +4,17 @@ using UnityEngine;
 
 public class TestDeliCall : MonoBehaviour
 {
-    
+    private int num = 100;
     // Start is called before the first frame update
     void Start()
     {
         TestDeli.notify = TestLog;
         TestDeli.notify();
-        BroadPrn otherDeli;
+        
+        TestDeli.BroadPrn otherDeli;
         otherDeli = TestDeli.LogK;
+        otherDeli();
+        otherDeli = TestDeli.LogAwake;
         otherDeli();
     }
 
@@ -22,7 +25,7 @@ public class TestDeliCall : MonoBehaviour
     }
     void TestLog()
     {
-        print("monndonfp");
+        print("monndonfp"+num);
     }
 }
 

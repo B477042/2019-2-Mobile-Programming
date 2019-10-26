@@ -5,17 +5,20 @@ using UnityEngine;
 //일정 시간이 지나면 블럭은 아래로 내려간다
 //싱글턴으로
 
+
+
+
 public class Controller : MonoBehaviour
 {
 
     //지금 조종하는 block. property처리
-    public static  GameObject controllingObject{get;set;}
+    public  GameObject controllingObject{get;set;}
     //조종하는 객체의 BlockMovement를 가리키는 것
     private BlockMovement movementComonent = null;
     
 
     //아래로 1칸씩 떨어지니까 속도는 1.0f를 기본값으로
-     private Vector3 droppingSpeed = Vector3.down;
+    // private Vector3 droppingSpeed = Vector3.down;
     //밑으로 낙하하는 간격. 1.0f 시간 간격으로 낙하
      private float dropInterval = 1.0f;
      private float timer = 0.0f;
@@ -48,6 +51,8 @@ public class Controller : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        //ReleaseControl함수를 Block On Contact이 실행될 때 실행하게 둡니다.
+        EventManger.Instance.AddEvent(EventType.BLOCK_ON_CONTACT, ReleaseControl);
         
     }
 
@@ -86,9 +91,9 @@ public class Controller : MonoBehaviour
         if (!controllingObject) return;        
         controllingObject = null;
     }
-    public void SpeedUp()
+     void SpeedUp()
     {
-        droppingSpeed += new Vector3(0.0f,1.0f,0.0f);
+       // droppingSpeed += new Vector3(0.0f,1.0f,0.0f);
     }
 
   
