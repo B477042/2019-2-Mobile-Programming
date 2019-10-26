@@ -289,7 +289,7 @@ GameObject:
   - component: {fileID: 1095620736903010915}
   m_Layer: 0
   m_Name: RightStair
-  m_TagString: Untagged
+  m_TagString: BLOCK
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -336,7 +336,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 93fd4cb1d107c9d448ec1f33ad161f45, type: 2}
+  - {fileID: 2100000, guid: 671d982217117d94b8f45223daad4dc9, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

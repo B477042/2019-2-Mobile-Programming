@@ -198,7 +198,7 @@ GameObject:
   - component: {fileID: 7459282190182854210}
   m_Layer: 0
   m_Name: LStick
-  m_TagString: Untagged
+  m_TagString: BLOCK
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -245,7 +245,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: d60ac8b284f172543835c2733cbe9b6a, type: 2}
+  - {fileID: 2100000, guid: 671d982217117d94b8f45223daad4dc9, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

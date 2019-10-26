@@ -17,8 +17,7 @@ public class Controller : MonoBehaviour
     private BlockMovement movementComonent = null;
     
 
-    //아래로 1칸씩 떨어지니까 속도는 1.0f를 기본값으로
-    // private Vector3 droppingSpeed = Vector3.down;
+   
     //밑으로 낙하하는 간격. 1.0f 시간 간격으로 낙하
      private float dropInterval = 1.0f;
      private float timer = 0.0f;
@@ -91,10 +90,7 @@ public class Controller : MonoBehaviour
         if (!controllingObject) return;        
         controllingObject = null;
     }
-     void SpeedUp()
-    {
-       // droppingSpeed += new Vector3(0.0f,1.0f,0.0f);
-    }
+   
 
   
 
@@ -132,6 +128,11 @@ public class Controller : MonoBehaviour
              if (Input.GetKeyDown(KeyCode.UpArrow))
             {
                 movementComonent.Rotate();
+                return;
+            }
+             if(Input.GetKey(KeyCode.DownArrow))
+            {
+                movementComonent.FasterDown();
                 return;
             }
         }

@@ -10,7 +10,7 @@ public class Spawner : MonoBehaviour
 
    // public GameObject block = null;
     //블럭이 내려올 위치를 저장하는 property
-   private Vector3 DropPoint { get { return new Vector3(0.0f, 10.0f, 0.0f); } }
+   private Vector3 DropPoint { get { return new Vector3(0.0f, 11.0f, 0.0f); } }
 
 
     private static Spawner instance = null;
