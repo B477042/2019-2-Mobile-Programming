@@ -11,10 +11,10 @@ GameObject:
   - component: {fileID: 3939954821542084868}
   - component: {fileID: 2162513228533582211}
   - component: {fileID: 3631301323568405689}
-  - component: {fileID: 9181529329597811192}
+  - component: {fileID: 3473186433496830388}
   m_Layer: 0
   m_Name: LStick (1)
-  m_TagString: Untagged
+  m_TagString: BLOCK
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -78,8 +78,8 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!65 &9181529329597811192
-BoxCollider:
+--- !u!135 &3473186433496830388
+SphereCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -89,7 +89,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
+  m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &2069914073071488603
 GameObject:
@@ -102,10 +102,10 @@ GameObject:
   - component: {fileID: 6057017541465397228}
   - component: {fileID: 2255968483154029061}
   - component: {fileID: 6645493065253896551}
-  - component: {fileID: 3358325473818047405}
+  - component: {fileID: 5040961537931656239}
   m_Layer: 0
   m_Name: LStick (2)
-  m_TagString: Untagged
+  m_TagString: BLOCK
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -169,8 +169,8 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!65 &3358325473818047405
-BoxCollider:
+--- !u!135 &5040961537931656239
+SphereCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -180,7 +180,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
+  m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &3761153931638469549
 GameObject:
@@ -193,9 +193,8 @@ GameObject:
   - component: {fileID: 5018061189742347188}
   - component: {fileID: 1566362631278238978}
   - component: {fileID: 8814237678135034730}
-  - component: {fileID: 1756852749400188743}
   - component: {fileID: 4711208514294632512}
-  - component: {fileID: 7459282190182854210}
+  - component: {fileID: 3888008772403637021}
   m_Layer: 0
   m_Name: LStick
   m_TagString: BLOCK
@@ -265,19 +264,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!65 &1756852749400188743
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3761153931638469549}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &4711208514294632512
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -290,22 +276,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0b2a4bf57163e64eac56c613dffb210, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!54 &7459282190182854210
-Rigidbody:
+--- !u!135 &3888008772403637021
+SphereCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3761153931638469549}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
   serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 0
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 126
-  m_CollisionDetection: 0
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &4286804677406288085
 GameObject:
   m_ObjectHideFlags: 0
@@ -317,10 +300,10 @@ GameObject:
   - component: {fileID: 3890478159800684751}
   - component: {fileID: 4912323469563613755}
   - component: {fileID: 1876695546981725326}
-  - component: {fileID: 130306719942430157}
+  - component: {fileID: 3111150207123433217}
   m_Layer: 0
   m_Name: LStick (3)
-  m_TagString: Untagged
+  m_TagString: BLOCK
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -384,8 +367,8 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!65 &130306719942430157
-BoxCollider:
+--- !u!135 &3111150207123433217
+SphereCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -395,5 +378,5 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
+  m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}

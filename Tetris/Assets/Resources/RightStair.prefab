@@ -11,10 +11,10 @@ GameObject:
   - component: {fileID: 5489632880331293190}
   - component: {fileID: 4180966850420439079}
   - component: {fileID: 6099478101105403940}
-  - component: {fileID: 3386993019301228211}
+  - component: {fileID: 8273911913501133361}
   m_Layer: 0
   m_Name: RightStair (1)
-  m_TagString: Untagged
+  m_TagString: BLOCK
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -78,8 +78,8 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!65 &3386993019301228211
-BoxCollider:
+--- !u!135 &8273911913501133361
+SphereCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -89,7 +89,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
+  m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &5001765950713851744
 GameObject:
@@ -102,10 +102,10 @@ GameObject:
   - component: {fileID: 1330529254705287493}
   - component: {fileID: 5667290317675736671}
   - component: {fileID: 6137194213048557831}
-  - component: {fileID: 2781371528675870833}
+  - component: {fileID: 7162099141186786760}
   m_Layer: 0
   m_Name: RightStair (3)
-  m_TagString: Untagged
+  m_TagString: BLOCK
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -169,8 +169,8 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!65 &2781371528675870833
-BoxCollider:
+--- !u!135 &7162099141186786760
+SphereCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -180,7 +180,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
+  m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &5418858178941778229
 GameObject:
@@ -193,10 +193,10 @@ GameObject:
   - component: {fileID: 4731755082093434281}
   - component: {fileID: 3893311990763014020}
   - component: {fileID: 6096781485906702354}
-  - component: {fileID: 2035595097607116816}
+  - component: {fileID: 1197771550662724801}
   m_Layer: 0
   m_Name: RightStair (2)
-  m_TagString: Untagged
+  m_TagString: BLOCK
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -260,8 +260,8 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!65 &2035595097607116816
-BoxCollider:
+--- !u!135 &1197771550662724801
+SphereCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -271,7 +271,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
+  m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &6047988668101315049
 GameObject:
@@ -284,9 +284,8 @@ GameObject:
   - component: {fileID: 716318300033580048}
   - component: {fileID: 9149855598038504455}
   - component: {fileID: 3762213900569155446}
-  - component: {fileID: 2354595463130306663}
   - component: {fileID: 800709441650060781}
-  - component: {fileID: 1095620736903010915}
+  - component: {fileID: 5957520478760745092}
   m_Layer: 0
   m_Name: RightStair
   m_TagString: BLOCK
@@ -356,19 +355,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!65 &2354595463130306663
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6047988668101315049}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &800709441650060781
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -381,19 +367,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0b2a4bf57163e64eac56c613dffb210, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!54 &1095620736903010915
-Rigidbody:
+--- !u!135 &5957520478760745092
+SphereCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6047988668101315049}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
   serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 0
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 126
-  m_CollisionDetection: 0
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}

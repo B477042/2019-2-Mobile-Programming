@@ -10,7 +10,7 @@ public class BlockMovement : MonoBehaviour
     //public delegate void InputAction();
     //public static InputAction inputAction;
     private float speed = 1.0f;
-    private float accelatedSpeed = 0.0f;
+    
     private Vector3 lastPos = new Vector3();
     private Quaternion lastRot = new Quaternion();
    
@@ -71,22 +71,8 @@ public class BlockMovement : MonoBehaviour
         transform.rotation=lastRot;
     }
 
-    //블럭을 아래로 내리꽂기
-    public void StraightDown()
-    {
-        
-    }
-    //속도를 올리기, down arrow가 눌리는 동안 호출
-    public void FasterDown()
-    {
-        accelatedSpeed += 0.01f;
-        //눌리게 되면 계속 호출 되니까 값을 조정해서 곱해준다
-        var correctedAccelation = accelatedSpeed / 10.0f;
-        if (correctedAccelation <= 0.0f) correctedAccelation = 1.0f;
-        saveLastTransform();
-        transform.position += Vector3.down * speed * correctedAccelation;
-        
-    }
+    
+    
    
 
    public void Rotate()
@@ -102,7 +88,7 @@ public class BlockMovement : MonoBehaviour
         else if (other.gameObject.tag == "WALL")
             moveBack();
     }
-    //event  manger에 알리는 용도로 아무것도 하지 않는다
+    ////event  manger에 알리는 용도로 아무것도 하지 않는다
     private void NotifyTrigger()
     {
 

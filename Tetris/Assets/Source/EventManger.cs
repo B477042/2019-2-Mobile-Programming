@@ -88,6 +88,7 @@ public class EventManger : MonoBehaviour
     {
         List<EventDelegate> tempList = null;
         //matching되는 value값이 없다면 return
+        print("Contact!!");
         if (!eventDic.TryGetValue(eventType, out tempList))  return;
         
         var listPointer = eventDic[eventType];

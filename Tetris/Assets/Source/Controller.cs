@@ -52,7 +52,7 @@ public class Controller : MonoBehaviour
     {
         //ReleaseControl함수를 Block On Contact이 실행될 때 실행하게 둡니다.
         EventManger.Instance.AddEvent(EventType.BLOCK_ON_CONTACT, ReleaseControl);
-        
+
     }
 
     // Update is called once per frame
@@ -82,17 +82,25 @@ public class Controller : MonoBehaviour
         movementComonent=controllingObject.GetComponent<BlockMovement>();
     }
     //BlockConstructor에서 이 블럭이 바닥이나 다른 블럭에 닿았으니 컨트롤하지 못하게 제어권을 놓게 만든다
-    //입력 인자로 받은 bool은 BlockConstructor에서 판단한 결과 값을 받아와서
-    //닿았다=true면 작동하고, 안 닿았다 = false면 제어하게 둔다
+    //놓기 전에 모든 컴포넌트에 rigidbody를 다 붙여준다
    
     private void ReleaseControl()
     {
         if (!controllingObject) return;        
         controllingObject = null;
     }
-   
 
-  
+    private void downFaster()
+    {
+        timer += 0.05f;
+    }
+    //블럭을 아래로 내리꽂기
+    public void StraightDown()
+    {
+
+    }
+
+
 
     //prefab의 자식객체에 접근 되는지 test
     private void TestPrint()
@@ -107,9 +115,9 @@ public class Controller : MonoBehaviour
     }
    
 
-        //입력을 처리한다
-        //좌우 이동, 회전
-        private void InputProcess()
+    //입력을 처리한다
+    //좌우 이동, 회전
+    private void InputProcess()
     {
         if (!controllingObject) return;
         if(Input.anyKeyDown)
@@ -130,13 +138,15 @@ public class Controller : MonoBehaviour
                 movementComonent.Rotate();
                 return;
             }
-             if(Input.GetKey(KeyCode.DownArrow))
-            {
-                movementComonent.FasterDown();
-                return;
-            }
+             
         }
-        
+
+        if (Input.GetKey(KeyCode.DownArrow))
+        {
+            downFaster();
+            return;
+        }
+
     }
     
 
