@@ -12,7 +12,7 @@ public class Controller : MonoBehaviour
 {
 
     //지금 조종하는 block. property처리
-    public  GameObject controllingObject{get;set;}
+    public  GameObject controllingObject{ get; set; }
     //조종하는 객체의 BlockMovement를 가리키는 것
     private BlockMovement movementComonent = null;
     
@@ -22,7 +22,12 @@ public class Controller : MonoBehaviour
      private float dropInterval = 1.0f;
      private float timer = 0.0f;
 
-
+    //그 방향으로 움직일 수 있게 허가해주는 dic
+    private enum dirrection
+    {
+       LEFT=0,RIGHT
+    }
+    private Dictionary<dirrection, bool> isAllowedTo=new Dictionary<dirrection, bool>();
     
 
     
@@ -50,9 +55,15 @@ public class Controller : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //ReleaseControl함수를 Block On Contact이 실행될 때 실행하게 둡니다.
-        EventManger.Instance.AddEvent(EventType.BLOCK_ON_CONTACT, ReleaseControl);
-
+        
+        //4방위 dic을 초기화
+        initDic();
+        EventManger.Instance.AddEvent(EventType.BLOCK_CONTACT_LEFT, notAllowToLeft);
+        EventManger.Instance.AddEvent(EventType.BLOCK_CONTACT_RIGHT, notAllpwToRight);
+        EventManger.Instance.AddEvent(EventType.BLOCK_NOT_CONTACT_LEFT, allowToLeft);
+        EventManger.Instance.AddEvent(EventType.BLOCK_NOT_CONTACT_RIGHT, allowToRight);
+        EventManger.Instance.AddEvent(EventType.BLOCK_CONSTRUCT_FINISH, releaseControl);
+        
     }
 
     // Update is called once per frame
@@ -63,7 +74,7 @@ public class Controller : MonoBehaviour
         timer += Time.deltaTime;
        // TestPrint();
         InputProcess();
-
+        TestPrint();
         //timer가 아직 interval이 되지 않았을 때 return
         if (timer < dropInterval) return;
         timer = 0.0f;
@@ -74,6 +85,14 @@ public class Controller : MonoBehaviour
 
       
     }
+
+    private void initDic()
+    {
+        
+        isAllowedTo.Add(dirrection.LEFT, true);
+        isAllowedTo.Add(dirrection.RIGHT, true);
+    }
+
     //spawner에서 만들어진 블럭을 받아온다
     public void TakeControl(GameObject gameObject)
     {
@@ -84,9 +103,11 @@ public class Controller : MonoBehaviour
     //BlockConstructor에서 이 블럭이 바닥이나 다른 블럭에 닿았으니 컨트롤하지 못하게 제어권을 놓게 만든다
     //놓기 전에 모든 컴포넌트에 rigidbody를 다 붙여준다
    
-    private void ReleaseControl()
+    private void releaseControl()
     {
-        if (!controllingObject) return;        
+        if (!controllingObject) return;
+        
+
         controllingObject = null;
     }
 
@@ -99,7 +120,22 @@ public class Controller : MonoBehaviour
     {
 
     }
-
+    private void notAllowToLeft()
+    {
+        isAllowedTo[dirrection.LEFT] = false;
+    }
+    private void notAllpwToRight()
+    {
+        isAllowedTo[dirrection.RIGHT] = false;
+    }
+    private void allowToLeft()
+    {
+        isAllowedTo[dirrection.LEFT] = true;
+    }
+    private void allowToRight()
+    {
+        isAllowedTo[dirrection.RIGHT] = true;
+    }
 
 
     //prefab의 자식객체에 접근 되는지 test
@@ -111,6 +147,8 @@ public class Controller : MonoBehaviour
             Debug.Log("자식들의 위치 "+(i+1)+" : "+controllingObject.transform.GetChild(i).transform.position );
             Debug.Log("자식들의 이름 " + (i + 1) + " : "+ controllingObject.transform.GetChild(i).gameObject.name);
         }
+        var pointer = controllingObject.gameObject;
+        pointer.transform.position += new Vector3(0.0f,0.0f,10.0f);
 
     }
    
@@ -122,13 +160,14 @@ public class Controller : MonoBehaviour
         if (!controllingObject) return;
         if(Input.anyKeyDown)
         {
-            if (Input.GetKeyDown(KeyCode.LeftArrow))
+            if (Input.GetKeyDown(KeyCode.LeftArrow)&&isAllowedTo[dirrection.LEFT]==true)
             {
+                
                 movementComonent.MoveLeft();
                 return;
             }
 
-             if (Input.GetKeyDown(KeyCode.RightArrow))
+             if (Input.GetKeyDown(KeyCode.RightArrow) && isAllowedTo[dirrection.RIGHT] == true)
             {
                 movementComonent.MoveRight();
                 return;

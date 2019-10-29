@@ -16,6 +16,7 @@ public class TestDeliCall : MonoBehaviour
         otherDeli();
         otherDeli = TestDeli.LogAwake;
         otherDeli();
+       
     }
 
     // Update is called once per frame

@@ -18,7 +18,9 @@ public class GameManger : MonoBehaviour
         }
     }
 
-
+    private int score = 0;
+    private int popCount = 0;
+    private int level = 1;
 
      void Awake()
     {

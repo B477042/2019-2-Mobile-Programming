@@ -5,6 +5,7 @@ using UnityEngine;
 public class TestDeli : MonoBehaviour
 {
     public delegate void BroadPrn();
+    
     //public delegate void BroadPrn();
     public static BroadPrn notify;
     private static int num = 90;
@@ -49,5 +50,9 @@ public class TestDeli : MonoBehaviour
     void Wawoo()
     {
         print("워우워우워");
+    }
+    public static void  Num(int n)
+    {
+        print(n);
     }
 }

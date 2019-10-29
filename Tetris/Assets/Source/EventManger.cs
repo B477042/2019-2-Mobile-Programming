@@ -5,10 +5,17 @@ using UnityEngine;
 
 public enum EventType
 {
-    //블럭이 바닥이나 다른 블럭과 닿았다
-    BLOCK_ON_CONTACT = 0,
-    //블럭이 벽에 닿았다
-    BLOCK_ON_CONTACT_TO_WALL,
+    //좌우로 붙었다가 떨어졌다가
+    BLOCK_NOT_CONTACT_LEFT,
+    BLOCK_NOT_CONTACT_RIGHT,
+    BLOCK_CONTACT_LEFT,
+    BLOCK_CONTACT_RIGHT,
+    //블럭이 스폰됨
+    BLOCK_SPAWNED,
+    //블럭이 닿았다고 판정했을 때 처리하는 과정
+    BLOCK_CONSTRUCTING,
+    //판정이 끝나고 난 후 처리
+   BLOCK_CONSTRUCT_FINISH,
     //줄이 완성됐다
     LINE_COMPLETE,
     //줄이 터졌다. 위에 있는 것들은 내려와야 된다

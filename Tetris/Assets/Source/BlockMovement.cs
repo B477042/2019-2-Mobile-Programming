@@ -17,7 +17,7 @@ public class BlockMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        EventManger.Instance.AddEvent(EventType.BLOCK_ON_CONTACT, NotifyTrigger);
+        
         //prefab으로 불러온 도형의 충돌 범위를 0.95f로 제한해둔다
         //gameObject.GetComponent<BoxCollider>().size = new Vector3(0.95f, 0.95f, 0.95f);
         //for (int i = 0; i < gameObject.transform.childCount;i++)
@@ -63,13 +63,13 @@ public class BlockMovement : MonoBehaviour
     //가면 안 되는 곳으로 이동하게 될 때 호출
     //벽에 부딪쳤을 때
     
-    private void moveBack()
-    {
-        //버그날 확률이 높은 코드
-        //최대한 빨리 개선할 것
-       transform.position = lastPos  ;
-        transform.rotation=lastRot;
-    }
+    //private void moveBack()
+    //{
+    //    //버그날 확률이 높은 코드
+    //    //최대한 빨리 개선할 것
+    //    transform.position = lastPos;
+    //    transform.rotation=lastRot;
+    //}
 
     
     
@@ -80,18 +80,6 @@ public class BlockMovement : MonoBehaviour
        transform.Rotate(new Vector3(0.0f, 0.0f, 90.0f));
     }
 
-    void OnTriggerEnter(Collider other)
-    {
-        //블럭이라면 Block on Contact 이벤트 호출
-        if (other.gameObject.tag == "BLOCK")
-            EventManger.Instance.NotifyEvent(EventType.BLOCK_ON_CONTACT);
-        else if (other.gameObject.tag == "WALL")
-            moveBack();
-    }
-    ////event  manger에 알리는 용도로 아무것도 하지 않는다
-    private void NotifyTrigger()
-    {
-
-    }
-
+   
+   
 }
