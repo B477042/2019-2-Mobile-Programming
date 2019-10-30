@@ -10,7 +10,7 @@ using UnityEngine;
 
 public class LineSpector : MonoBehaviour
 {
-    private List<GameObject> line = null;
+    private List<GameObject> line = new List<GameObject>();
 
     static private int createdCount=0;
     private  int floor = 1;
@@ -25,7 +25,8 @@ public class LineSpector : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-       
+        
+        EventManger.Instance.AddEvent(EventType.BLOCK_CONSTRUCTING, receiveBlocks);
     }
 
     // Update is called once per frame
@@ -35,9 +36,15 @@ public class LineSpector : MonoBehaviour
     }
     
     //라인 전체를 터트린다
-    private void popLine()
+    public void popLine()
     {
-        
+        foreach(var index in line)
+        {
+            Destroy(index.gameObject);
+            
+        }
+        line.Clear();
+
     }
     //block이 닿았다는 이벤트에 맞춰서 진행
     //evnet type block constructiong
@@ -48,9 +55,11 @@ public class LineSpector : MonoBehaviour
         for (int i = 0; i < tempBlock.transform.childCount; i++)
         {
             if (tempBlock.transform.GetChild(i).transform.position.y == floor)
+            {
                 line.Add(tempBlock.transform.GetChild(i).gameObject);
-            
-        }
+            }
+                
+         }
     }
     //라인의 갯수가 꽉찼다면(10개) return true
     //아니라면 false

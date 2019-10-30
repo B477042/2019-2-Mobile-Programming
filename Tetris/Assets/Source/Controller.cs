@@ -74,12 +74,12 @@ public class Controller : MonoBehaviour
         timer += Time.deltaTime;
        // TestPrint();
         InputProcess();
-        TestPrint();
+        
         //timer가 아직 interval이 되지 않았을 때 return
         if (timer < dropInterval) return;
         timer = 0.0f;
         
-        
+        TestPrint();
         //낙하
         movementComonent.MoveDown();
 
@@ -147,8 +147,8 @@ public class Controller : MonoBehaviour
             Debug.Log("자식들의 위치 "+(i+1)+" : "+controllingObject.transform.GetChild(i).transform.position );
             Debug.Log("자식들의 이름 " + (i + 1) + " : "+ controllingObject.transform.GetChild(i).gameObject.name);
         }
-        var pointer = controllingObject.gameObject;
-        pointer.transform.position += new Vector3(0.0f,0.0f,10.0f);
+        if (controllingObject.transform.GetChild(1) != null)
+            Destroy(controllingObject.transform.GetChild(1).gameObject);
 
     }
    
