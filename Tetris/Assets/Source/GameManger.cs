@@ -21,6 +21,15 @@ public class GameManger : MonoBehaviour
     private int score = 0;
     private int popCount = 0;
     private int level = 1;
+    private int exp = 0;
+    private readonly int maxExp = 10;
+
+    //singleTon
+    private Controller controller;
+    private BlockConstructor blockConstructor;
+    private Spawner spawner;
+    private EventManger eventManger;
+
 
      void Awake()
     {
@@ -32,6 +41,23 @@ public class GameManger : MonoBehaviour
         instance = this;
         DontDestroyOnLoad(this);
         
+    }
+    private void addPopCount()
+    {
+        popCount++;
+    }
+    private void addScore()
+    {
+        score += 100;
+    }
+    private void addExp()
+    {
+        exp++;
+        if(exp>=maxExp)
+        {
+            level++;
+            exp = 0;
+        }
     }
 
 

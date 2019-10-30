@@ -10,6 +10,11 @@ public enum EventType
     BLOCK_NOT_CONTACT_RIGHT,
     BLOCK_CONTACT_LEFT,
     BLOCK_CONTACT_RIGHT,
+    //벽에 겹쳤을 때
+    //BLOCK_CONTACT_LEFT_WALL,
+    //BLOCK_CONTACT_RIGHT_WALL,
+    //BLOCK_NOT_CONTACT_LEFT_WALL,
+    //BLOCK_NOT_CONTACT_RIGHT_WALL,
     //블럭이 스폰됨
     BLOCK_SPAWNED,
     //블럭이 닿았다고 판정했을 때 처리하는 과정
@@ -95,7 +100,7 @@ public class EventManger : MonoBehaviour
     {
         List<EventDelegate> tempList = null;
         //matching되는 value값이 없다면 return
-        print("Contact!!");
+        //print("Contact!!");
         if (!eventDic.TryGetValue(eventType, out tempList))  return;
         
         var listPointer = eventDic[eventType];

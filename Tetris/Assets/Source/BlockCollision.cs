@@ -13,7 +13,7 @@ public class BlockCollison : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-       
+        EventManger.Instance.AddEvent(EventType.BLOCK_CONSTRUCT_FINISH, addRigidbody);
 
     }
 
@@ -52,6 +52,14 @@ public class BlockCollison : MonoBehaviour
             EventManger.Instance.NotifyEvent(EventType.BLOCK_NOT_CONTACT_RIGHT);
     }
 
-
+    //안착된 객체에 rigibody를 넣어준다
+    private void addRigidbody()
+    {
+        gameObject.AddComponent<Rigidbody>();
+        var rigi = gameObject.GetComponent<Rigidbody>();
+        rigi.useGravity = false;
+        rigi.freezeRotation = true;
+        
+    }
 
 }

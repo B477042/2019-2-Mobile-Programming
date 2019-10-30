@@ -23,11 +23,11 @@ public class Controller : MonoBehaviour
      private float timer = 0.0f;
 
     //그 방향으로 움직일 수 있게 허가해주는 dic
-    private enum dirrection
+    private enum command
     {
-       LEFT=0,RIGHT
+       LEFT=0,RIGHT,ROTATE
     }
-    private Dictionary<dirrection, bool> isAllowedTo=new Dictionary<dirrection, bool>();
+    private Dictionary<command, bool> isAllowedTo=new Dictionary<command, bool>();
     
 
     
@@ -62,8 +62,10 @@ public class Controller : MonoBehaviour
         EventManger.Instance.AddEvent(EventType.BLOCK_CONTACT_RIGHT, notAllpwToRight);
         EventManger.Instance.AddEvent(EventType.BLOCK_NOT_CONTACT_LEFT, allowToLeft);
         EventManger.Instance.AddEvent(EventType.BLOCK_NOT_CONTACT_RIGHT, allowToRight);
-        EventManger.Instance.AddEvent(EventType.BLOCK_CONSTRUCT_FINISH, releaseControl);
-        
+        //  EventManger.Instance.AddEvent(EventType.BLOCK_CONSTRUCT_FINISH, releaseControl);
+        //EventManger.Instance.AddEvent(EventType.BLOCK_CONTACT_LEFT_WALL, notAllpwRotate);
+        //EventManger.Instance.AddEvent(EventType.BLOCK_CONTACT_RIGHT_WALL, notAllpwRotate);
+
     }
 
     // Update is called once per frame
@@ -89,8 +91,9 @@ public class Controller : MonoBehaviour
     private void initDic()
     {
         
-        isAllowedTo.Add(dirrection.LEFT, true);
-        isAllowedTo.Add(dirrection.RIGHT, true);
+        isAllowedTo.Add(command.LEFT, true);
+        isAllowedTo.Add(command.RIGHT, true);
+        isAllowedTo.Add(command.ROTATE, true);
     }
 
     //spawner에서 만들어진 블럭을 받아온다
@@ -122,23 +125,33 @@ public class Controller : MonoBehaviour
     }
     private void notAllowToLeft()
     {
-        isAllowedTo[dirrection.LEFT] = false;
+        isAllowedTo[command.LEFT] = false;
     }
     private void notAllpwToRight()
     {
-        isAllowedTo[dirrection.RIGHT] = false;
+        isAllowedTo[command.RIGHT] = false;
+    }
+    private void notAllpwRotate()
+    {
+        isAllowedTo[command.ROTATE] = false;
     }
     private void allowToLeft()
     {
-        isAllowedTo[dirrection.LEFT] = true;
+        isAllowedTo[command.LEFT] = true;
     }
     private void allowToRight()
     {
-        isAllowedTo[dirrection.RIGHT] = true;
+        isAllowedTo[command.RIGHT] = true;
+    }
+    private void allowToRotate()
+    {
+        isAllowedTo[command.ROTATE] = true;
     }
 
 
+
     //prefab의 자식객체에 접근 되는지 test
+    //문법 확인용으로 만든 함수. 나중에 삭제
     private void TestPrint()
     {
         Debug.Log("가진 자식의 수"+controllingObject.transform.childCount);
@@ -149,9 +162,45 @@ public class Controller : MonoBehaviour
         }
         if (controllingObject.transform.GetChild(1) != null)
             Destroy(controllingObject.transform.GetChild(1).gameObject);
+        int a = 30, b = 40;
+        List<int> origin = new List<int>();
+       
+        origin.Add(a);
+        origin.Add(b);
+        print(origin[0] + "<- origin a value, " + origin[1] + "<- b value");
+        List<int> copy = new List<int>(origin);
+        print(copy[0] + "<- Copy a value, " + copy[1] + "<- b value");
+        copy[0] = 60;
+        print(origin[0] + "<- origin a value, " + origin[1] + "<- b value");
+        print(copy[0] + "<- Copy a value, " + copy[1] + "<- b value");
+        print(a + "a<- value");
+        a = 100;
+        print(origin[0] + "<- origin a value, " + origin[1] + "<- b value");
+        print(copy[0] + "<- Copy a value, " + copy[1] + "<- b value");
+        print(a + "<- a value");
 
+        origin = copy;
+        print(origin[0] + "<- origin a value, " + origin[1] + "<- b value");
+        print(copy[0] + "<- Copy a value, " + copy[1] + "<- b value");
+        print(a + "<- a value");
+
+        List<int> other = new List<int>();
+        other.Add(900);
+        other.Add(1000);
+
+        copy[0] = 700;
+        copy = other;
+        print(origin[0] + "<- origin a value, " + origin[1] + "<- b value");
+        print(copy[0] + "<- Copy a value, " + copy[1] + "<- b value");
+        print(other[0] + "<- other a value, " + other[1] + "<- b value");
+        print(a + "<- a value");
+        other.Clear();
+        print(origin[0] + "<- origin a value, " + origin[1] + "<- b value");
+        print(copy[0] + "<- Copy a value, " + copy[1] + "<- b value");
+        print(other[0] + "<- other a value, " + other[1] + "<- b value");
+        print(a + "<- a value");
     }
-   
+
 
     //입력을 처리한다
     //좌우 이동, 회전
@@ -160,14 +209,14 @@ public class Controller : MonoBehaviour
         if (!controllingObject) return;
         if(Input.anyKeyDown)
         {
-            if (Input.GetKeyDown(KeyCode.LeftArrow)&&isAllowedTo[dirrection.LEFT]==true)
+            if (Input.GetKeyDown(KeyCode.LeftArrow)&&isAllowedTo[command.LEFT]==true)
             {
                 
                 movementComonent.MoveLeft();
                 return;
             }
 
-             if (Input.GetKeyDown(KeyCode.RightArrow) && isAllowedTo[dirrection.RIGHT] == true)
+             if (Input.GetKeyDown(KeyCode.RightArrow) && isAllowedTo[command.RIGHT] == true)
             {
                 movementComonent.MoveRight();
                 return;
