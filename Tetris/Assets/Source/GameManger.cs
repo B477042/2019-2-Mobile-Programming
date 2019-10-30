@@ -18,18 +18,13 @@ public class GameManger : MonoBehaviour
         }
     }
 
-    private int score = 0;
+    private int score { get; set; }
     private int popCount = 0;
     private int level = 1;
     private int exp = 0;
     private readonly int maxExp = 10;
-
-    //singleTon
-    private Controller controller;
-    private BlockConstructor blockConstructor;
-    private Spawner spawner;
-    private EventManger eventManger;
-
+    private bool power;
+    
 
      void Awake()
     {
@@ -40,8 +35,31 @@ public class GameManger : MonoBehaviour
         }
         instance = this;
         DontDestroyOnLoad(this);
-        
+        power = true;
     }
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        gameObject.AddComponent<Controller>();
+        gameObject.AddComponent<Spawner>();
+        gameObject.AddComponent<BlockConstructor>();
+        gameObject.AddComponent<EventManger>();
+        gameObject.AddComponent<BlockSignalReciver>();
+
+        EventManger.Instance.AddEvent(EventType.LINE_POPED, addExp);
+        EventManger.Instance.AddEvent(EventType.LINE_POPED, addPopCount);
+        EventManger.Instance.AddEvent(EventType.LINE_POPED, addScore);
+        EventManger.Instance.AddEvent(EventType.GAME_OVER, showResult);
+
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+
+    }
+
     private void addPopCount()
     {
         popCount++;
@@ -60,18 +78,15 @@ public class GameManger : MonoBehaviour
         }
     }
 
-
-
-
-    // Start is called before the first frame update
-    void Start()
+    private void showResult()
     {
-        
+        power = false;
+    }
+    public bool GetPower()
+    {
+        return power;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+
+    
 }

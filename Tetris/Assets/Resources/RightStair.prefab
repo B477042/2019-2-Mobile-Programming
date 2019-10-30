@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 7870823568811756581}
   - component: {fileID: 7870823568811756578}
   - component: {fileID: 7870823568811756579}
+  - component: {fileID: 8348142748028173265}
   m_Layer: 0
   m_Name: RightStair (2)
   m_TagString: BLOCK
@@ -91,6 +92,18 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &8348142748028173265
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7870823568811756577}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d6bc4d9ceb7fe04d951d2eb5ff2ea9f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7870823569536813898
 GameObject:
   m_ObjectHideFlags: 0
@@ -103,6 +116,7 @@ GameObject:
   - component: {fileID: 7870823569536813902}
   - component: {fileID: 7870823569536813903}
   - component: {fileID: 7870823569536813900}
+  - component: {fileID: 5906925188098823164}
   m_Layer: 0
   m_Name: RightStair (3)
   m_TagString: BLOCK
@@ -182,6 +196,18 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &5906925188098823164
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7870823569536813898}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d6bc4d9ceb7fe04d951d2eb5ff2ea9f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7870823569588048598
 GameObject:
   m_ObjectHideFlags: 0
@@ -194,6 +220,7 @@ GameObject:
   - component: {fileID: 7870823569588048618}
   - component: {fileID: 7870823569588048619}
   - component: {fileID: 7870823569588048616}
+  - component: {fileID: 2914360902306640736}
   m_Layer: 0
   m_Name: RightStair (4)
   m_TagString: BLOCK
@@ -273,6 +300,18 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &2914360902306640736
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7870823569588048598}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d6bc4d9ceb7fe04d951d2eb5ff2ea9f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7870823569650100433
 GameObject:
   m_ObjectHideFlags: 0
@@ -332,6 +371,7 @@ GameObject:
   - component: {fileID: 7870823569974536561}
   - component: {fileID: 7870823569974536574}
   - component: {fileID: 7870823569974536575}
+  - component: {fileID: 2527788627049188265}
   m_Layer: 0
   m_Name: RightStair (1)
   m_TagString: BLOCK
@@ -411,3 +451,15 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &2527788627049188265
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7870823569974536573}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d6bc4d9ceb7fe04d951d2eb5ff2ea9f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 7872973653385181458}
   - component: {fileID: 7872973653385181461}
   - component: {fileID: 7872973653385181460}
+  - component: {fileID: 1620030891237643177}
   m_Layer: 0
   m_Name: LeftStair (2)
   m_TagString: BLOCK
@@ -91,6 +92,18 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1620030891237643177
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7872973653385181462}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d6bc4d9ceb7fe04d951d2eb5ff2ea9f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7872973653902548042
 GameObject:
   m_ObjectHideFlags: 0
@@ -103,6 +116,7 @@ GameObject:
   - component: {fileID: 7872973653902548038}
   - component: {fileID: 7872973653902548041}
   - component: {fileID: 7872973653902548040}
+  - component: {fileID: 2475594525757314314}
   m_Layer: 0
   m_Name: LeftStair (1)
   m_TagString: BLOCK
@@ -182,6 +196,18 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &2475594525757314314
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7872973653902548042}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d6bc4d9ceb7fe04d951d2eb5ff2ea9f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7872973654223511014
 GameObject:
   m_ObjectHideFlags: 0
@@ -241,6 +267,7 @@ GameObject:
   - component: {fileID: 7872973654270148217}
   - component: {fileID: 7872973654270148216}
   - component: {fileID: 7872973654270148219}
+  - component: {fileID: 6872537953788097784}
   m_Layer: 0
   m_Name: LeftStair (3)
   m_TagString: BLOCK
@@ -320,6 +347,18 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &6872537953788097784
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7872973654270148221}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d6bc4d9ceb7fe04d951d2eb5ff2ea9f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7872973654321342433
 GameObject:
   m_ObjectHideFlags: 0
@@ -332,6 +371,7 @@ GameObject:
   - component: {fileID: 7872973654321342429}
   - component: {fileID: 7872973654321342428}
   - component: {fileID: 7872973654321342431}
+  - component: {fileID: 1932062928467506263}
   m_Layer: 0
   m_Name: LeftStair (4)
   m_TagString: BLOCK
@@ -411,3 +451,15 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1932062928467506263
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7872973654321342433}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d6bc4d9ceb7fe04d951d2eb5ff2ea9f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

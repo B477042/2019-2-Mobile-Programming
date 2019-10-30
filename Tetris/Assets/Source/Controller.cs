@@ -28,8 +28,8 @@ public class Controller : MonoBehaviour
        LEFT=0,RIGHT,ROTATE
     }
     private Dictionary<command, bool> isAllowedTo=new Dictionary<command, bool>();
-    
 
+    private bool power = true;
     
     private static Controller instance = null;
     public static Controller  Instance
@@ -62,6 +62,9 @@ public class Controller : MonoBehaviour
         EventManger.Instance.AddEvent(EventType.BLOCK_CONTACT_RIGHT, notAllpwToRight);
         EventManger.Instance.AddEvent(EventType.BLOCK_NOT_CONTACT_LEFT, allowToLeft);
         EventManger.Instance.AddEvent(EventType.BLOCK_NOT_CONTACT_RIGHT, allowToRight);
+        EventManger.Instance.AddEvent(EventType.LINE_WORK_COMPLETE, releaseControl);
+        EventManger.Instance.AddEvent(EventType.GAME_OVER, TurnOffController);
+        EventManger.Instance.AddEvent(EventType.BLOCK_SPAWNED, initContorller);
         //  EventManger.Instance.AddEvent(EventType.BLOCK_CONSTRUCT_FINISH, releaseControl);
         //EventManger.Instance.AddEvent(EventType.BLOCK_CONTACT_LEFT_WALL, notAllpwRotate);
         //EventManger.Instance.AddEvent(EventType.BLOCK_CONTACT_RIGHT_WALL, notAllpwRotate);
@@ -81,7 +84,7 @@ public class Controller : MonoBehaviour
         if (timer < dropInterval) return;
         timer = 0.0f;
         
-        TestPrint();
+        //TestPrint();
         //낙하
         movementComonent.MoveDown();
 
@@ -109,8 +112,8 @@ public class Controller : MonoBehaviour
     private void releaseControl()
     {
         if (!controllingObject) return;
-        
 
+        EventManger.Instance.NotifyEvent(EventType.BLOCK_CONSTRUCT_FINISH);
         controllingObject = null;
     }
 
@@ -147,59 +150,69 @@ public class Controller : MonoBehaviour
     {
         isAllowedTo[command.ROTATE] = true;
     }
-
+    private void initContorller()
+    {
+        allowToLeft();
+        allowToRight();
+        allowToRotate();
+        
+    }
+    private void TurnOffController()
+    {
+        power = false;
+    }
 
 
     //prefab의 자식객체에 접근 되는지 test
     //문법 확인용으로 만든 함수. 나중에 삭제
-    private void TestPrint()
-    {
-        Debug.Log("가진 자식의 수"+controllingObject.transform.childCount);
-        for (int i = 0; i < controllingObject.transform.childCount; i++)
-        {
-            Debug.Log("자식들의 위치 "+(i+1)+" : "+controllingObject.transform.GetChild(i).transform.position );
-            Debug.Log("자식들의 이름 " + (i + 1) + " : "+ controllingObject.transform.GetChild(i).gameObject.name);
-        }
-        if (controllingObject.transform.GetChild(1) != null)
-            Destroy(controllingObject.transform.GetChild(1).gameObject);
-        int a = 30, b = 40;
-        List<int> origin = new List<int>();
+    //private void TestPrint()
+    //{
+    //    Debug.Log("가진 자식의 수"+controllingObject.transform.childCount);
+    //    for (int i = 0; i < controllingObject.transform.childCount; i++)
+    //    {
+    //        Debug.Log("자식들의 위치 "+(i+1)+" : "+controllingObject.transform.GetChild(i).transform.position );
+    //        Debug.Log("자식들의 이름 " + (i + 1) + " : "+ controllingObject.transform.GetChild(i).gameObject.name);
+    //    }
+    //    if (controllingObject.transform.GetChild(1) != null)
+    //        Destroy(controllingObject.transform.GetChild(1).gameObject);
+    //    int a = 30, b = 40;
+    //    List<int> origin = new List<int>();
        
-        origin.Add(a);
-        origin.Add(b);
-        print(origin[0] + "<- origin a value, " + origin[1] + "<- b value");
-        List<int> copy = new List<int>(origin);
-        print(copy[0] + "<- Copy a value, " + copy[1] + "<- b value");
-        copy[0] = 60;
-        print(origin[0] + "<- origin a value, " + origin[1] + "<- b value");
-        print(copy[0] + "<- Copy a value, " + copy[1] + "<- b value");
-        print(a + "a<- value");
-        a = 100;
-        print(origin[0] + "<- origin a value, " + origin[1] + "<- b value");
-        print(copy[0] + "<- Copy a value, " + copy[1] + "<- b value");
-        print(a + "<- a value");
+    //    origin.Add(a);
+    //    origin.Add(b);
+    //    print(origin[0] + "<- origin a value, " + origin[1] + "<- b value");
+    //    List<int> copy = new List<int>(origin);
+    //    print(copy[0] + "<- Copy a value, " + copy[1] + "<- b value");
+    //    copy[0] = 60;
+    //    print(origin[0] + "<- origin a value, " + origin[1] + "<- b value");
+    //    print(copy[0] + "<- Copy a value, " + copy[1] + "<- b value");
+    //    print(a + "a<- value");
+    //    a = 100;
+    //    print(origin[0] + "<- origin a value, " + origin[1] + "<- b value");
+    //    print(copy[0] + "<- Copy a value, " + copy[1] + "<- b value");
+    //    print(a + "<- a value");
 
-        origin = copy;
-        print(origin[0] + "<- origin a value, " + origin[1] + "<- b value");
-        print(copy[0] + "<- Copy a value, " + copy[1] + "<- b value");
-        print(a + "<- a value");
+    //    origin = copy;
+    //    print(origin[0] + "<- origin a value, " + origin[1] + "<- b value");
+    //    print(copy[0] + "<- Copy a value, " + copy[1] + "<- b value");
+    //    print(a + "<- a value");
 
-        List<int> other = new List<int>();
-        other.Add(900);
-        other.Add(1000);
+    //    List<int> other = new List<int>();
+    //    other.Add(900);
+    //    other.Add(1000);
 
-        copy[0] = 700;
-        copy = other;
-        print(origin[0] + "<- origin a value, " + origin[1] + "<- b value");
-        print(copy[0] + "<- Copy a value, " + copy[1] + "<- b value");
-        print(other[0] + "<- other a value, " + other[1] + "<- b value");
-        print(a + "<- a value");
-        other.Clear();
-        print(origin[0] + "<- origin a value, " + origin[1] + "<- b value");
-        print(copy[0] + "<- Copy a value, " + copy[1] + "<- b value");
-        print(other[0] + "<- other a value, " + other[1] + "<- b value");
-        print(a + "<- a value");
-    }
+    //    copy[0] = 700;
+    //    copy = other;
+    //    print(origin[0] + "<- origin a value, " + origin[1] + "<- b value");
+    //    print(copy[0] + "<- Copy a value, " + copy[1] + "<- b value");
+    //    print(other[0] + "<- other a value, " + other[1] + "<- b value");
+    //    print(a + "<- a value");
+    //    other.Clear();
+    //    print(origin[0] + "<- origin a value, " + origin[1] + "<- b value");
+    //    print(copy[0] + "<- Copy a value, " + copy[1] + "<- b value");
+    //    print(other[0] + "<- other a value, " + other[1] + "<- b value");
+    //    print(a + "<- a value");
+    //}
 
 
     //입력을 처리한다
@@ -207,6 +220,7 @@ public class Controller : MonoBehaviour
     private void InputProcess()
     {
         if (!controllingObject) return;
+        if (!power) return;//if power off, stop input process
         if(Input.anyKeyDown)
         {
             if (Input.GetKeyDown(KeyCode.LeftArrow)&&isAllowedTo[command.LEFT]==true)

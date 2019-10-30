@@ -10,17 +10,22 @@ using UnityEngine;
 
 public class LineSpector : MonoBehaviour
 {
-    private List<GameObject> line = new List<GameObject>();
+    private List<GameObject> line;
 
     static private int createdCount=0;
-    private  int floor = 0;
-    private readonly int maxCapacity = 10;
+    private int floor;
+    private int maxCapacity { get { return 10; } }
+    
+
     private void Awake()
     {
-        
-        createdCount++;
+        line= new List<GameObject>();
+
+        floor = 0;
         floor =  createdCount;
+        createdCount++;
         line.Capacity=   maxCapacity;
+       // print("Spector active. capacity : " + line.Capacity+"  my sector : "+floor);
     }
     // Start is called before the first frame update
     void Start()
@@ -44,6 +49,7 @@ public class LineSpector : MonoBehaviour
             
         }
         line.Clear();
+        
 
     }
     //block이 닿았다는 이벤트에 맞춰서 진행
@@ -58,6 +64,7 @@ public class LineSpector : MonoBehaviour
         {
             if (tempBlock.transform.GetChild(i).transform.position.y == floor)
             {
+                tempBlock.transform.GetChild(i).tag="Stacked";
                 line.Add(tempBlock.transform.GetChild(i).gameObject);
             }
                 
@@ -80,14 +87,14 @@ public class LineSpector : MonoBehaviour
    //호출하는 곳은 ReBuilding으로 한정한다
     public void InsertValue(LineSpector other,int index)
     {
-        //index number가 9보다 크면 return
-        if (index > maxCapacity-1) return;
-
+        //index number가 10보다 크면 return
+        if (index > maxCapacity) return;
+        other.line[index].gameObject.transform.position += Vector3.down;
         line.Add(other.line[index]);
     }
 
-    public int GetLineCount()
+    public int GetLineCapacity()
     {
-        return line.Count;
+        return line.Capacity;
     }
 }

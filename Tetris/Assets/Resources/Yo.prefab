@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 7202324944850745202}
   - component: {fileID: 7202324944850745205}
   - component: {fileID: 7202324944850745204}
+  - component: {fileID: 2410980015255178449}
   m_Layer: 0
   m_Name: Yo (2)
   m_TagString: BLOCK
@@ -91,6 +92,18 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &2410980015255178449
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7202324944850745206}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d6bc4d9ceb7fe04d951d2eb5ff2ea9f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7202324945141355050
 GameObject:
   m_ObjectHideFlags: 0
@@ -103,6 +116,7 @@ GameObject:
   - component: {fileID: 7202324945141355046}
   - component: {fileID: 7202324945141355049}
   - component: {fileID: 7202324945141355048}
+  - component: {fileID: 8072098567065765125}
   m_Layer: 0
   m_Name: Yo (1)
   m_TagString: BLOCK
@@ -182,6 +196,18 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &8072098567065765125
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7202324945141355050}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d6bc4d9ceb7fe04d951d2eb5ff2ea9f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7202324945561332097
 GameObject:
   m_ObjectHideFlags: 0
@@ -194,6 +220,7 @@ GameObject:
   - component: {fileID: 7202324945561332157}
   - component: {fileID: 7202324945561332156}
   - component: {fileID: 7202324945561332159}
+  - component: {fileID: 3739549704629608781}
   m_Layer: 0
   m_Name: Yo (4)
   m_TagString: BLOCK
@@ -273,6 +300,18 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &3739549704629608781
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7202324945561332097}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d6bc4d9ceb7fe04d951d2eb5ff2ea9f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7202324945576980509
 GameObject:
   m_ObjectHideFlags: 0
@@ -285,6 +324,7 @@ GameObject:
   - component: {fileID: 7202324945576980505}
   - component: {fileID: 7202324945576980504}
   - component: {fileID: 7202324945576980507}
+  - component: {fileID: 1717513961939744523}
   m_Layer: 0
   m_Name: Yo (3)
   m_TagString: BLOCK
@@ -364,6 +404,18 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1717513961939744523
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7202324945576980509}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d6bc4d9ceb7fe04d951d2eb5ff2ea9f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7202324945623012230
 GameObject:
   m_ObjectHideFlags: 0

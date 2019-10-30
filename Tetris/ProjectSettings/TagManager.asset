@@ -6,6 +6,8 @@ TagManager:
   tags:
   - WALL
   - BLOCK
+  - Bottom
+  - Stacked
   layers:
   - Default
   - TransparentFX

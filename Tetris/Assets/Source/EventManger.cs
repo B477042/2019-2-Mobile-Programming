@@ -21,8 +21,8 @@ public enum EventType
     BLOCK_CONSTRUCTING,
     //판정이 끝나고 난 후 처리
    BLOCK_CONSTRUCT_FINISH,
-    //줄이 완성됐다
-    LINE_COMPLETE,
+    //그 줄에서 작업한 것이 완료됐다
+    LINE_WORK_COMPLETE,
     //줄이 터졌다. 위에 있는 것들은 내려와야 된다
     LINE_POPED,
     //게임오버
@@ -98,11 +98,13 @@ public class EventManger : MonoBehaviour
      */
     public void NotifyEvent(EventType eventType)
     {
+        
         List<EventDelegate> tempList = null;
         //matching되는 value값이 없다면 return
         //print("Contact!!");
         if (!eventDic.TryGetValue(eventType, out tempList))  return;
-        
+
+        print("Activated Event!! name : " + eventType.ToString());
         var listPointer = eventDic[eventType];
 
         foreach (var x in listPointer)

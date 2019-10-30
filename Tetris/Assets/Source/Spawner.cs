@@ -11,7 +11,7 @@ public class Spawner : MonoBehaviour
    // public GameObject block = null;
     //블럭이 내려올 위치를 저장하는 property
    private Vector3 DropPoint { get { return new Vector3(0.0f, 11.0f, 0.0f); } }
-
+    private bool power = true;
 
     private static Spawner instance = null;
     public static Spawner Instance
@@ -38,22 +38,19 @@ public class Spawner : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        EventManger.Instance.AddEvent(EventType.GAME_OVER, turnOffSpawner);
 
     }
 
     // Update is called once per frame
     void Update()
     {
-        // if (block != null) return;
-        //if(block.transform.position.y>0)
-        //block.transform.position += /*block.transform.position*/  droppingSpeed;
+        
         if (Controller.Instance.controllingObject==null) 
         {
-            Controller.Instance.TakeControl(SpawnNewBlocks(BlocksEnum.LeftStair));
-            //ProductBlock();
 
-            //Controller.Instance.TakeControl(SpawnNewBlocks());
+            //ProductBlock();
+            Controller.Instance.TakeControl(SpawnNewBlocks(BlocksEnum.Cube));
         }
 
 
@@ -65,6 +62,7 @@ public class Spawner : MonoBehaviour
         //if Block Name is UnVaild, return Null
         GameObject newBlocks= Instantiate(Resources.Load(BlockDic.Dic[BlockName], typeof(GameObject)) as GameObject);
         newBlocks.transform.position =DropPoint;
+        EventManger.Instance.NotifyEvent(EventType.BLOCK_SPAWNED);
         return newBlocks;
         
     }
@@ -72,6 +70,7 @@ public class Spawner : MonoBehaviour
     //이렇게 만든 이유 : Random이 int형을 취급 안 해서
     private void ProductBlock()
     {
+        if (!power) return;
         int rBlock = (int)Random.Range((float)BlocksEnum.Cube, (float)BlocksEnum.Yo + 1);
         switch(rBlock)
         {
@@ -99,7 +98,10 @@ public class Spawner : MonoBehaviour
         }
 
     }
-
+    private void turnOffSpawner()
+    {
+        power = false;
+    }
  
 
 }

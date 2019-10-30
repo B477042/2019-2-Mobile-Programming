@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 591454833567598669}
   - component: {fileID: 591454833567598666}
   - component: {fileID: 591454833567598667}
+  - component: {fileID: 3105228749838262986}
   m_Layer: 0
   m_Name: LStick (2)
   m_TagString: BLOCK
@@ -91,6 +92,18 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &3105228749838262986
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 591454833567598665}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d6bc4d9ceb7fe04d951d2eb5ff2ea9f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &591454834257909438
 GameObject:
   m_ObjectHideFlags: 0
@@ -103,6 +116,7 @@ GameObject:
   - component: {fileID: 591454834257909378}
   - component: {fileID: 591454834257909379}
   - component: {fileID: 591454834257909376}
+  - component: {fileID: 1115242209874913078}
   m_Layer: 0
   m_Name: LStick (4)
   m_TagString: BLOCK
@@ -182,6 +196,18 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1115242209874913078
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 591454834257909438}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d6bc4d9ceb7fe04d951d2eb5ff2ea9f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &591454834309435170
 GameObject:
   m_ObjectHideFlags: 0
@@ -194,6 +220,7 @@ GameObject:
   - component: {fileID: 591454834309435174}
   - component: {fileID: 591454834309435175}
   - component: {fileID: 591454834309435172}
+  - component: {fileID: 365935438182085558}
   m_Layer: 0
   m_Name: LStick (3)
   m_TagString: BLOCK
@@ -273,6 +300,18 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &365935438182085558
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 591454834309435170}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d6bc4d9ceb7fe04d951d2eb5ff2ea9f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &591454834338835641
 GameObject:
   m_ObjectHideFlags: 0
@@ -332,6 +371,7 @@ GameObject:
   - component: {fileID: 591454834946387225}
   - component: {fileID: 591454834946387222}
   - component: {fileID: 591454834946387223}
+  - component: {fileID: 9142280118412910779}
   m_Layer: 0
   m_Name: LStick (1)
   m_TagString: BLOCK
@@ -411,3 +451,15 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &9142280118412910779
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 591454834946387221}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d6bc4d9ceb7fe04d951d2eb5ff2ea9f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

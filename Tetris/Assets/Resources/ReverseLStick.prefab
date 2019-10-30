@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 7219580641288729066}
   - component: {fileID: 7219580641288729061}
   - component: {fileID: 7219580641288729060}
+  - component: {fileID: 7374576760706586604}
   m_Layer: 0
   m_Name: ReverseLStick (1)
   m_TagString: BLOCK
@@ -91,6 +92,18 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &7374576760706586604
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7219580641288729062}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d6bc4d9ceb7fe04d951d2eb5ff2ea9f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7219580641628893258
 GameObject:
   m_ObjectHideFlags: 0
@@ -150,6 +163,7 @@ GameObject:
   - component: {fileID: 7219580641658278869}
   - component: {fileID: 7219580641658278868}
   - component: {fileID: 7219580641658278871}
+  - component: {fileID: 6327553867261721237}
   m_Layer: 0
   m_Name: ReverseLStick (3)
   m_TagString: BLOCK
@@ -229,6 +243,18 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &6327553867261721237
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7219580641658278865}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d6bc4d9ceb7fe04d951d2eb5ff2ea9f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7219580641674185293
 GameObject:
   m_ObjectHideFlags: 0
@@ -241,6 +267,7 @@ GameObject:
   - component: {fileID: 7219580641674185329}
   - component: {fileID: 7219580641674185328}
   - component: {fileID: 7219580641674185331}
+  - component: {fileID: 8124679619918479184}
   m_Layer: 0
   m_Name: ReverseLStick (4)
   m_TagString: BLOCK
@@ -320,6 +347,18 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &8124679619918479184
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7219580641674185293}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d6bc4d9ceb7fe04d951d2eb5ff2ea9f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7219580642401162426
 GameObject:
   m_ObjectHideFlags: 0
@@ -332,6 +371,7 @@ GameObject:
   - component: {fileID: 7219580642401162430}
   - component: {fileID: 7219580642401162425}
   - component: {fileID: 7219580642401162424}
+  - component: {fileID: 826996812103783194}
   m_Layer: 0
   m_Name: ReverseLStick (2)
   m_TagString: BLOCK
@@ -411,3 +451,15 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &826996812103783194
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7219580642401162426}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d6bc4d9ceb7fe04d951d2eb5ff2ea9f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
