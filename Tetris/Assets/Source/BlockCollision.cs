@@ -103,8 +103,9 @@ public class BlockCollision : MonoBehaviour
         gameObject.AddComponent<Rigidbody>();
         var rigi = gameObject.GetComponent<Rigidbody>();
         rigi.useGravity = false;
-        rigi.constraints = RigidbodyConstraints.FreezeRotation;
+       // rigi.constraints = RigidbodyConstraints.FreezeRotation;
         rigi.constraints= RigidbodyConstraints.FreezePosition;
+        rigi.freezeRotation = true;
 
     }
    private void turnOffTrigger()

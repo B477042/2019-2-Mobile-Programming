@@ -49,8 +49,8 @@ public class Spawner : MonoBehaviour
         if (Controller.Instance.controllingObject==null) 
         {
 
-            //ProductBlock();
-            Controller.Instance.TakeControl(SpawnNewBlocks(BlocksEnum.Cube));
+            ProductBlock();
+            //Controller.Instance.TakeControl(SpawnNewBlocks(BlocksEnum.Cube));
         }
 
 
