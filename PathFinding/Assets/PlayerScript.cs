@@ -3,7 +3,7 @@ using System.Collections;
 
 public class PlayerScript : MonoBehaviour {
 
-    GridManager gm = null;
+    GridManager gm = null;//grid manager에 대한 정보를 가져온다. 
     Coroutine move_coroutine = null;
         
 	// Use this for initialization
@@ -11,6 +11,8 @@ public class PlayerScript : MonoBehaviour {
     {
         gm = Camera.main.GetComponent<GridManager>() as GridManager;
         gm.BuildWorld(50, 50);
+        //Camera에 있는 static 변수 main. 이것은 main camera
+        //gm에 Main cam의 grid manager를 받아서 바로 사용하였다. 
     }
 
     // Update is called once per frame
@@ -40,10 +42,12 @@ public class PlayerScript : MonoBehaviour {
             if (Physics.Raycast(ray, out hit))
             {
                 print(hit.transform.tag);
+                //일반적으로 갈 수 있는 공간
                 if (hit.transform.tag == "Plane")
                 {
                     var wall = GameObject.CreatePrimitive(PrimitiveType.Cube);
                     wall.GetComponent<MeshRenderer>().material.color = Color.yellow;
+                    //노란색칠. 벽을 만들고
                     wall.tag = "Wall";
                     wall.transform.position = gm.pos2center(hit.point);
                     gm.SetAsWall(wall.transform.position);
