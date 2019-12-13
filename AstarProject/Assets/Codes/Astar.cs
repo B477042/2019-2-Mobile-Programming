@@ -6,8 +6,8 @@ public class Astar : MonoBehaviour
 {
    public enum BlocType
     {
-        block,
-        none
+        wall,
+        plain
     }
    public enum SearchMode
     {
@@ -16,19 +16,25 @@ public class Astar : MonoBehaviour
     }
   public struct BlockData
     {
-        public int num;//객체 번호
+        public int Num;//객체 번호
         public float Hcount;//출발 지점까지 거리
         public float Fcount;//도착 지점까지 거리
+       
         
     }
 
 
     public LinkedList<Vector3> Path;//경로로 이루어진 리스트
-    
+    private List<bool> wallList;
+    private List<Vector3> roadList;
+    private int horizontal,vertical;//map의 가로세로
+
     // Start is called before the first frame update
     void Start()
     {
         Path = new LinkedList<Vector3>();
+        wallList = new List<bool>();
+        roadList = new List<Vector3>();
     }
 
     // Update is called once per frame
@@ -36,6 +42,7 @@ public class Astar : MonoBehaviour
     {
         
     }
+    
 
     public LinkedList<Vector3> StartSearch(  Vector3  Start  ,  Vector3 Goal, SearchMode mode)
     {
@@ -81,5 +88,17 @@ public class Astar : MonoBehaviour
 
 
     }
+
+    private int vecToNum(Vector3 from)
+    {
+        return ((int)from.y * horizontal + (int)from.x);
+    }
+    private Vector3 numToVec(int from)
+    {
+        Vector3 temp = new Vector3(from % horizontal, from / horizontal, 0.0f);
+        return temp;
+    }
+
+    private 
 }
 
