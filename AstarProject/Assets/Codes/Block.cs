@@ -2,6 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
+public enum BlocType
+{
+    wall,
+    plain
+}
 public class Block : MonoBehaviour
 {
     
@@ -16,6 +22,8 @@ public class Block : MonoBehaviour
     {
        
     }
+    public Vector3 GetPos() { return transform.position; }
+    public Quaternion GetRot() { return transform.rotation; }
 
     
 }
