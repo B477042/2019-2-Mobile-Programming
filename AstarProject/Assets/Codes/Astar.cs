@@ -23,16 +23,22 @@ public class Astar : MonoBehaviour
         Right,
         LDiagonalUp,
         LDiagonalDown,
-        RDiagnoalUp,
-        RDiagnoalDown
+        RDiagonalUp,
+        RDiagonalDown
     }
     //private Dictionary<neighborDirection,Block> ;
-private struct BlockData
+private struct BlockData : IEnumerable
 {
     public int Num;//객체 번호
     public int Hcount;//출발 지점까지 거리, 초기값 -1
     public int Fcount;//도착 지점까지 거리, 초기값 -1
     public Block Block;
+     
+    public IEnumerator GetEnumerator()
+        {
+            IEnumerator enumerator;
+
+        }
 }
 
 
@@ -120,7 +126,8 @@ private struct BlockData
         return temp;
     }
     //Block을 불러들어와 정보를 읽는다
-    //게임 시작 전, 호출할 것
+    //게임 시작 전, 호출할 것.
+    //정렬 시킬 방법이 없어 보이는 list니까 반드시 처음 넣을 때 num이 오름차순으로 정렬되게 할 것
     private void readBlockInfo(Block Input)
     {
         if (Input == null) return;
@@ -153,7 +160,7 @@ private struct BlockData
             Result.Add(neighborDirection.Left);
             Result.Add(neighborDirection.LDiagonalDown);
             Result.Add(neighborDirection.LDiagonalUp);
-            Result.Add(neighborDirection.RDiagnoalDown);
+            Result.Add(neighborDirection.RDiagonalDown);
 
         }
         //전체의 좌측 상단
@@ -163,7 +170,7 @@ private struct BlockData
             Result.Add(neighborDirection.Left);
             Result.Add(neighborDirection.LDiagonalDown);
             Result.Add(neighborDirection.LDiagonalUp);
-            Result.Add(neighborDirection.RDiagnoalUp);
+            Result.Add(neighborDirection.RDiagonalUp);
 
         }
         //전체의 우측 하단
@@ -171,8 +178,8 @@ private struct BlockData
         {
             Result.Add(neighborDirection.Right);
             Result.Add(neighborDirection.Down);
-            Result.Add(neighborDirection.RDiagnoalUp);
-            Result.Add(neighborDirection.RDiagnoalDown);
+            Result.Add(neighborDirection.RDiagonalUp);
+            Result.Add(neighborDirection.RDiagonalDown);
             Result.Add(neighborDirection.LDiagonalDown);
         }
         //전체의 우측 상단
@@ -180,8 +187,8 @@ private struct BlockData
         {
             Result.Add(neighborDirection.Right);
             Result.Add(neighborDirection.Up);
-            Result.Add(neighborDirection.RDiagnoalUp);
-            Result.Add(neighborDirection.RDiagnoalDown);
+            Result.Add(neighborDirection.RDiagonalUp);
+            Result.Add(neighborDirection.RDiagonalDown);
             Result.Add(neighborDirection.LDiagonalUp);
 
         }
@@ -199,23 +206,23 @@ private struct BlockData
         {
             Result.Add(neighborDirection.Up);
             Result.Add(neighborDirection.Right);
-            Result.Add(neighborDirection.RDiagnoalUp);
-           
+            Result.Add(neighborDirection.RDiagonalUp);
+
 
         }
         //전체의 좌측 상단
         else if (temp == (n_vertical - 1) * n_horizontal)
         {
             Result.Add(neighborDirection.Down);
-            Result.Add(neighborDirection.Right);        
-            Result.Add(neighborDirection.RDiagnoalDown);
+            Result.Add(neighborDirection.Right);
+            Result.Add(neighborDirection.RDiagonalDown);
 
         }
         //전체의 우측 하단
         else if (temp == n_horizontal)
         {
             Result.Add(neighborDirection.Left);
-            Result.Add(neighborDirection.Up);          
+            Result.Add(neighborDirection.Up);
             Result.Add(neighborDirection.LDiagonalUp);
         }
         //전체의 우측 상단
@@ -226,16 +233,64 @@ private struct BlockData
             Result.Add(neighborDirection.LDiagonalDown);
 
         }
-        else return null;
+        else
+        {
+            Result.Add(neighborDirection.Up);
+            Result.Add(neighborDirection.Right);
+           
+            Result.Add(neighborDirection.Left);
+            Result.Add(neighborDirection.Down);
+              Result.Add(neighborDirection.LDiagonalUp);
+            Result.Add(neighborDirection.LDiagonalDown);
+          
+            Result.Add(neighborDirection.RDiagonalUp);
+            Result.Add(neighborDirection.RDiagonalDown);
+        }
         return Result;
     }
     //객체번호를 이용해서 Block을 찾아낸다
     private BlockData findBlockByNum(int Num)
     {
         BlockData result=new BlockData();
-
+        result=BlockList[Num];
 
         return result;
     }
+    private BlockData findBlockByDirection(BlockData Start,neighborDirection Direction)
+    {
+        BlockData Result=new BlockData();
+        int Num = 0;
+        switch(Direction)
+        {
+            case neighborDirection.Up:
+                Num = Start.Num + n_horizontal;
+                Result = findBlockByNum(Num);
+                break;
+            case neighborDirection.Down:
+
+                break;
+            case neighborDirection.Left:
+
+                break;
+            case neighborDirection.Right:
+
+                break;
+            case neighborDirection.LDiagonalUp:
+
+                break;
+            case neighborDirection.LDiagonalDown:
+
+                break;
+            case neighborDirection.RDiagonalUp:
+
+                break;
+            case neighborDirection.RDiagonalDown:
+
+                break;
+        }
+        return Result;
+       
+    }
+       
 }
 
