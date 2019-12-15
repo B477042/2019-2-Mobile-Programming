@@ -26,25 +26,58 @@ public class Astar : MonoBehaviour
         RDiagonalUp,
         RDiagonalDown
     }
+    
     //private Dictionary<neighborDirection,Block> ;
-private struct BlockData : IEnumerable
+private struct BlockData 
 {
     public int Num;//객체 번호
     public int Hcount;//출발 지점까지 거리, 초기값 -1
     public int Fcount;//도착 지점까지 거리, 초기값 -1
     public Block Block;
-     
-    public IEnumerator GetEnumerator()
+     //모든 비교의 기준은 객체번호가 됩니다
+        public static bool operator <(BlockData lhs,BlockData rhs)
+    {
+            if (lhs.Num < rhs.Num) return true;
+            else return false;
+    }
+        public static bool operator >(BlockData lhs, BlockData rhs)
+    {
+            if (lhs.Num > rhs.Num) return true;
+            else return false;
+     }
+        public static bool operator ==(BlockData lhs, BlockData rhs)
         {
-            IEnumerator enumerator;
-
+            if (lhs.Num == rhs.Num) return true;
+            else return false;
         }
-}
+        public static bool operator !=(BlockData lhs, BlockData rhs)
+        {
+            if (lhs.Num != rhs.Num) return true;
+            else return false;
+        }
+        public static bool operator >=(BlockData lhs, BlockData rhs)
+        {
+            if (lhs.Num >= rhs.Num) return true;
+            else return false;
+        }
+        public static bool operator <=(BlockData lhs, BlockData rhs)
+        {
+            if (lhs.Num <= rhs.Num) return true;
+            else return false;
+        }
 
-
+    }
+    
+    [SerializeField]
     public LinkedList<Vector3> Path;//경로로 이루어진 리스트
+
+    [SerializeField]
     private List<bool> wallList;
+
+    [SerializeField]
     private List<BlockData> BlockList;//모든 블럭들의 리스트 위치
+
+    [SerializeField]
     private int n_horizontal,n_vertical;//map의 가로세로
     //private SearchMode searchMode;
 
@@ -55,7 +88,7 @@ private struct BlockData : IEnumerable
         wallList = new List<bool>();
         BlockList = new List<BlockData>();
         //searchMode = SearchMode.FourWay;
-       
+        BuildMap(10,10);
     }
 
     // Update is called once per frame
@@ -68,7 +101,14 @@ private struct BlockData : IEnumerable
     {
         n_horizontal = x;
         n_vertical = y;
-
+        for(int Y=0;Y<n_vertical;Y++)
+        {
+            for(int X=0;X<n_horizontal;X++)
+            {
+                addBlockFromMapToBlockList(X, Y);
+            }
+        }
+      //  print((BlockList[10] < BlockList[20]));
     }
     public LinkedList<Vector3> StartSearch(  Vector3  Start  ,  Vector3 Goal, SearchMode mode)
     {
@@ -100,7 +140,7 @@ private struct BlockData : IEnumerable
         else return null;
     }
 
-    private void searchPath(Vector3 Start, Vector3 Goal, SearchMode mode)
+    private void searchPath(BlockData Start, BlockData Goal, SearchMode mode)
     {
         /*
          - 작동 구조
@@ -112,7 +152,10 @@ private struct BlockData : IEnumerable
          *      5-1) 최적이 아닌경우, return
          *      5-2) path의 last가 index와 같다면, last를 pop 하고 return
          */
-         
+        var indexNode = Start;
+        //Start지점에서 갈 수 있는 방향 리스트
+        var ablePathList = cheackAbleDirection(indexNode);
+
 
     }
 
@@ -125,17 +168,19 @@ private struct BlockData : IEnumerable
         Vector3 temp = new Vector3(from % n_horizontal, from / n_horizontal, 0.0f);
         return temp;
     }
-    //Block을 불러들어와 정보를 읽는다
-    //게임 시작 전, 호출할 것.
-    //정렬 시킬 방법이 없어 보이는 list니까 반드시 처음 넣을 때 num이 오름차순으로 정렬되게 할 것
-    private void readBlockInfo(Block Input)
+    //블럭을 만들자
+    //입력된 좌표를 이용하여
+    //
+    private void addBlockFromMapToBlockList(int X, int Y)
     {
-        if (Input == null) return;
+        int index = Y * n_horizontal + X;
+       
+        Vector3 newPos = new Vector3(X, Y, 0.0f);
 
-        var temp = Input.GetPos();
         BlockData newBlockData=new BlockData();
-        newBlockData.Block = Input;
-        newBlockData.Num = vecToNum(temp);
+
+        newBlockData.Block = Instantiate(Resources.Load("Block"), newPos, Quaternion.identity )as Block;
+        newBlockData.Num = index;
         newBlockData.Fcount = -1;
         newBlockData.Hcount = -1;
         BlockList.Add(newBlockData);
@@ -262,30 +307,40 @@ private struct BlockData : IEnumerable
         int Num = 0;
         switch(Direction)
         {
+            case neighborDirection.None:
+                Result = findBlockByNum(Num);
+                break;
             case neighborDirection.Up:
                 Num = Start.Num + n_horizontal;
                 Result = findBlockByNum(Num);
                 break;
             case neighborDirection.Down:
-
+                Num = Start.Num - n_horizontal;
+                Result = findBlockByNum(Num);
                 break;
             case neighborDirection.Left:
-
+                Num = Start.Num -1;
+                Result = findBlockByNum(Num);
                 break;
             case neighborDirection.Right:
-
+                Num = Start.Num + 1;
+                Result = findBlockByNum(Num);
                 break;
             case neighborDirection.LDiagonalUp:
-
+                Num = Start.Num + n_horizontal-1;
+                Result = findBlockByNum(Num);
                 break;
             case neighborDirection.LDiagonalDown:
-
+                Num = Start.Num - n_horizontal-1;
+                Result = findBlockByNum(Num);
                 break;
             case neighborDirection.RDiagonalUp:
-
+                Num = Start.Num + n_horizontal + 1;
+                Result = findBlockByNum(Num);
                 break;
             case neighborDirection.RDiagonalDown:
-
+                Num = Start.Num - n_horizontal + 1;
+                Result = findBlockByNum(Num);
                 break;
         }
         return Result;
