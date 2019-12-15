@@ -89,6 +89,8 @@ private struct BlockData
         BlockList = new List<BlockData>();
         //searchMode = SearchMode.FourWay;
         BuildMap(10,10);
+
+        searchPath(findBlockByNum(14), findBlockByNum(15), SearchMode.FourWay);
     }
 
     // Update is called once per frame
@@ -140,7 +142,7 @@ private struct BlockData
         else return null;
     }
 
-    private void searchPath(BlockData Start, BlockData Goal, SearchMode mode)
+    private void searchPath(BlockData Start, BlockData Goal, SearchMode Mode)
     {
         /*
          - 작동 구조
@@ -154,8 +156,20 @@ private struct BlockData
          */
         var indexNode = Start;
         //Start지점에서 갈 수 있는 방향 리스트
-        var ablePathList = cheackAbleDirection(indexNode);
+        var ablePathList = cheackAbleDirection(indexNode,Mode);
+        List<BlockData> tempPathList=new List<BlockData>();
+        //able path list를 이용하여 갈수 있는 방향의 블럭들을 리스트로 만들어준다
+       foreach(var i in ablePathList)
+        {
+            var temp = findBlockByDirection(indexNode, i);
+            calcCounts(indexNode, Goal, temp);
+            tempPathList.Add(temp);
 
+        }
+       //정렬을 해둔다
+        tempPathList.Sort();
+        foreach(var i in tempPathList)
+        print("temp Path list  => "+i.Num);
 
     }
 
@@ -185,15 +199,15 @@ private struct BlockData
         newBlockData.Hcount = -1;
         BlockList.Add(newBlockData);
     }
-    private void calcCounts(Vector3 Start, Vector3 Goal, BlockData From)
+    private void calcCounts(BlockData Start, BlockData Goal, BlockData From)//원점, 도착점, 시작점
     {
         if (Start == null || Goal == null) return;
-        From.Hcount = (int)Vector3.Distance(Start, From.Block.GetPos());
-        From.Fcount = (int)Vector3.Distance(Goal, From.Block.GetPos());
+        From.Hcount = (int)Vector3.Distance(Start.Block.GetPos(), From.Block.GetPos());
+        From.Fcount = (int)Vector3.Distance(Goal.Block.GetPos(), From.Block.GetPos());
 
     }
     //갈 수 없는 방향을  리스트로 짜서 리턴한다
-    private List<neighborDirection>cheackUnableDirection(BlockData Target)
+    private List<neighborDirection>cheackUnableDirection(BlockData Target, SearchMode Mode)
     {
         List<neighborDirection> Result = new List<neighborDirection>();
         //조사대상이 되는 BlockData의 num을 저장
@@ -203,9 +217,12 @@ private struct BlockData
         {
             Result.Add(neighborDirection.Down);
             Result.Add(neighborDirection.Left);
-            Result.Add(neighborDirection.LDiagonalDown);
-            Result.Add(neighborDirection.LDiagonalUp);
-            Result.Add(neighborDirection.RDiagonalDown);
+            if (Mode == SearchMode.AllWay)
+            {
+                Result.Add(neighborDirection.LDiagonalDown);
+                Result.Add(neighborDirection.LDiagonalUp);
+                Result.Add(neighborDirection.RDiagonalDown);
+            }
 
         }
         //전체의 좌측 상단
@@ -213,9 +230,12 @@ private struct BlockData
         {
             Result.Add(neighborDirection.Up);
             Result.Add(neighborDirection.Left);
-            Result.Add(neighborDirection.LDiagonalDown);
-            Result.Add(neighborDirection.LDiagonalUp);
-            Result.Add(neighborDirection.RDiagonalUp);
+            if (Mode == SearchMode.AllWay)
+            {
+                Result.Add(neighborDirection.LDiagonalDown);
+                Result.Add(neighborDirection.LDiagonalUp);
+                Result.Add(neighborDirection.RDiagonalUp);
+            }
 
         }
         //전체의 우측 하단
@@ -223,25 +243,31 @@ private struct BlockData
         {
             Result.Add(neighborDirection.Right);
             Result.Add(neighborDirection.Down);
-            Result.Add(neighborDirection.RDiagonalUp);
-            Result.Add(neighborDirection.RDiagonalDown);
-            Result.Add(neighborDirection.LDiagonalDown);
+            if (Mode == SearchMode.AllWay)
+            {
+                Result.Add(neighborDirection.RDiagonalUp);
+                Result.Add(neighborDirection.RDiagonalDown);
+                Result.Add(neighborDirection.LDiagonalDown);
+            }
         }
         //전체의 우측 상단
         else if (temp==n_horizontal*n_vertical-1)
         {
             Result.Add(neighborDirection.Right);
             Result.Add(neighborDirection.Up);
-            Result.Add(neighborDirection.RDiagonalUp);
-            Result.Add(neighborDirection.RDiagonalDown);
-            Result.Add(neighborDirection.LDiagonalUp);
+            if (Mode == SearchMode.AllWay)
+            {
+                Result.Add(neighborDirection.RDiagonalUp);
+                Result.Add(neighborDirection.RDiagonalDown);
+                Result.Add(neighborDirection.LDiagonalUp);
+            }
 
         }
         else return null; 
         return Result;
     }
     //갈 수 있는 방향을  리스트로 짜서 리턴한다
-    private List<neighborDirection> cheackAbleDirection(BlockData Target)
+    private List<neighborDirection> cheackAbleDirection(BlockData Target,SearchMode Mode)
     {
         List<neighborDirection> Result = new List<neighborDirection>();
         //조사대상이 되는 BlockData의 num을 저장
@@ -251,6 +277,7 @@ private struct BlockData
         {
             Result.Add(neighborDirection.Up);
             Result.Add(neighborDirection.Right);
+            if(Mode==SearchMode.AllWay)
             Result.Add(neighborDirection.RDiagonalUp);
 
 
@@ -260,7 +287,8 @@ private struct BlockData
         {
             Result.Add(neighborDirection.Down);
             Result.Add(neighborDirection.Right);
-            Result.Add(neighborDirection.RDiagonalDown);
+            if (Mode == SearchMode.AllWay)
+                Result.Add(neighborDirection.RDiagonalDown);
 
         }
         //전체의 우측 하단
@@ -268,14 +296,16 @@ private struct BlockData
         {
             Result.Add(neighborDirection.Left);
             Result.Add(neighborDirection.Up);
-            Result.Add(neighborDirection.LDiagonalUp);
+            if (Mode == SearchMode.AllWay)
+                Result.Add(neighborDirection.LDiagonalUp);
         }
         //전체의 우측 상단
         else if (temp == n_horizontal * n_vertical - 1)
         {
             Result.Add(neighborDirection.Left);
             Result.Add(neighborDirection.Down);
-            Result.Add(neighborDirection.LDiagonalDown);
+            if (Mode == SearchMode.AllWay)
+                Result.Add(neighborDirection.LDiagonalDown);
 
         }
         else
@@ -285,11 +315,15 @@ private struct BlockData
            
             Result.Add(neighborDirection.Left);
             Result.Add(neighborDirection.Down);
-              Result.Add(neighborDirection.LDiagonalUp);
-            Result.Add(neighborDirection.LDiagonalDown);
+            if (Mode == SearchMode.AllWay)
+            {
+                  Result.Add(neighborDirection.LDiagonalUp);
+                 Result.Add(neighborDirection.LDiagonalDown);
           
-            Result.Add(neighborDirection.RDiagonalUp);
-            Result.Add(neighborDirection.RDiagonalDown);
+                 Result.Add(neighborDirection.RDiagonalUp);
+                 Result.Add(neighborDirection.RDiagonalDown);
+            }
+                
         }
         return Result;
     }
