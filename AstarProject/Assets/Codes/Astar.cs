@@ -90,6 +90,7 @@ private struct BlockData
         //searchMode = SearchMode.FourWay;
         BuildMap(10,10);
 
+        //여기서 null reference가 일어난다
         searchPath(findBlockByNum(14), findBlockByNum(15), SearchMode.FourWay);
     }
 
