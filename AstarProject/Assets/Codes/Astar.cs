@@ -134,7 +134,7 @@ public class Astar : MonoBehaviour
         //  print((BlockList[10] < BlockList[20]));
     }
 
-    public LinkedList<Block> StartSearch(Vector3 Start, Vector3 Goal, SearchMode mode)
+    public LinkedList<BlockData> StartSearch(Vector3 Start, Vector3 Goal, SearchMode mode)
     {
         /*
          *Step

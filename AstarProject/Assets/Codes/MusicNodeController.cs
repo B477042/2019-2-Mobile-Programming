@@ -2,6 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public struct NodeLine
+{
+    public List<MusicNode> Line;
+    public string LineName;
+    public Vector3 LineZeroPoint;
+
+}
 public class MusicNodeController : MonoBehaviour
 {
     private const float DetectRange = 3.0f;
@@ -45,10 +52,10 @@ public class MusicNodeController : MonoBehaviour
     //주어진 라인에 대한 업데이트 처리
     void UpdateList(List<MusicNode> Target)
     {
-        foreach (var i in Target)
-        {
-            i.Drop(speed);
-        }
+        //foreach (var i in Target)
+        //{
+        //    i.Drop(speed);
+        //}
     }
 
     private void increaseSpeed()

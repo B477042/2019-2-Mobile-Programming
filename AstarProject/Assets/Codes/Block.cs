@@ -27,7 +27,7 @@ public class Block : MonoBehaviour
         for (int i = 0; i < 4; i++)
             paths.Add(Resources.Load("Path" + i) as Material);
 
-
+        
         ChangeToPlain();
         //ChangeToPath();
     }
@@ -54,5 +54,5 @@ public class Block : MonoBehaviour
         myType = BlockType.plain;
         gameObject.GetComponent<Renderer>().material = plain;
     }
-    public 
+    
 }
