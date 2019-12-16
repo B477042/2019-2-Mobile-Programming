@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class MusicPlayer : MonoBehaviour
 {
+    private List<MusicNodeLine> NodeLines;
+    public int Score { get; set; }
+
     // Start is called before the first frame update
     void Start()
     {

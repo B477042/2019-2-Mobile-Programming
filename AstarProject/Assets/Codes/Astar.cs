@@ -110,8 +110,8 @@ public class Astar : MonoBehaviour
         BuildMap(10, 10);
 
         //여기서 null reference가 일어난다
-        searchPath(findBlockByNum(0), findBlockByNum(93), SearchMode.FourWay);
-        paintPath();
+        StartSearch(findBlockByNum(0), findBlockByNum(93), SearchMode.FourWay);
+        
     }
 
     // Update is called once per frame
@@ -164,7 +164,13 @@ public class Astar : MonoBehaviour
     //    if (bResult) return Path;
     //    else return null;
     //}
-
+    public LinkedList<BlockData>StartSearch(BlockData Start,BlockData Goal, SearchMode mode)
+    {
+        //A*를 이용하여 경로를 찾아준다
+        searchPath(Start, Goal, mode);
+        paintPath();
+        return Path;
+    }
     private void searchPath(BlockData Start, BlockData Goal, SearchMode Mode)
     {
         //재귀 호출의 종료
