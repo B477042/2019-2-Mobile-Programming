@@ -15,20 +15,29 @@ public class Block : MonoBehaviour
     private Material wall;
     private Material plain;
    protected List<Material> paths;
+    private void Awake()
+    {
+         myType = BlockType.plain;
+        wall = Resources.Load("Wall") as Material;
+        plain = Resources.Load("Plain") as Material;
+        paths = new List<Material>();
+        for (int i = 0; i < 4; i++)
+        {
+            string assetName = ("Path" + i);
+             paths.Add(Resources.Load(assetName) as Material);
+            print("Name : " + assetName);
+        }
+           
+    }
     // Start is called before the first frame update
     void Start()
     {
         //renderer = GetComponent<Renderer>();
        
-        myType = BlockType.plain;
-        wall = Resources.Load("Wall") as Material;
-        plain = Resources.Load("Plain") as Material;
-        paths = new List<Material>();
-        for (int i = 0; i < 4; i++)
-            paths.Add(Resources.Load("Path" + i) as Material);
+       
 
         
-        ChangeToPlain();
+       // ChangeToPlain();
         //ChangeToPath();
     }
 
@@ -41,8 +50,8 @@ public class Block : MonoBehaviour
     public Quaternion GetRot() { return transform.rotation; }
     public void ChangeToPath()
     {
-        gameObject.GetComponent<Renderer>().material = paths[2];
-
+        gameObject.GetComponent<Renderer>().material = paths[1];
+        print("lets paittt");
     }
     public void ChangeToWall()
     {
@@ -53,6 +62,12 @@ public class Block : MonoBehaviour
     {
         myType = BlockType.plain;
         gameObject.GetComponent<Renderer>().material = plain;
+        print("paitn!");
+    }
+    public bool IsWall()
+    {
+        if (myType == BlockType.wall) return true;
+        else return false;
     }
     
 }

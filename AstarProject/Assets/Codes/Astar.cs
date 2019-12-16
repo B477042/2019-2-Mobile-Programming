@@ -110,7 +110,8 @@ public class Astar : MonoBehaviour
         BuildMap(10, 10);
 
         //여기서 null reference가 일어난다
-        searchPath(findBlockByNum(0), findBlockByNum(16), SearchMode.FourWay);
+        searchPath(findBlockByNum(0), findBlockByNum(93), SearchMode.FourWay);
+        paintPath();
     }
 
     // Update is called once per frame
@@ -134,38 +135,40 @@ public class Astar : MonoBehaviour
         //  print((BlockList[10] < BlockList[20]));
     }
 
-    public LinkedList<BlockData> StartSearch(Vector3 Start, Vector3 Goal, SearchMode mode)
-    {
-        /*
-         *Step
-         *  - 탈출 조건 
-         *      1) index의 Fcount가 0이다. 
-         *      2) 모든 탐색 결과, 길이 없다
-         *      
-         *  - 작동 구조
-         *      1) index node를 Start의 시작 지점으로 잡는다. 
-         *      2) index node로 갈 수 있는 지점들을 검사한다. 
-                    BlockData를 계산해준다. 
-         *      3) 나온 값들은 list에 임시로 담아둔다. 
-         *      4) 모든 방향으로 계산이 끝났다면, list를 정렬해준다. list.sort를 할 경우 오름차순으로 정렬이 된다
-         *      5-1) 최적이 아닌경우, return
-         *      5-2) path의 last가 index와 같다면, last를 pop 하고 return
-         */
+    //public LinkedList<BlockData> StartSearch(Vector3 Start, Vector3 Goal, SearchMode mode)
+    //{
+    //    /*
+    //     *Step
+    //     *  - 탈출 조건 
+    //     *      1) index의 Fcount가 0이다. 
+    //     *      2) 모든 탐색 결과, 길이 없다
+    //     *      
+    //     *  - 작동 구조
+    //     *      1) index node를 Start의 시작 지점으로 잡는다. 
+    //     *      2) index node로 갈 수 있는 지점들을 검사한다. 
+    //                BlockData를 계산해준다. 
+    //     *      3) 나온 값들은 list에 임시로 담아둔다. 
+    //     *      4) 모든 방향으로 계산이 끝났다면, list를 정렬해준다. list.sort를 할 경우 오름차순으로 정렬이 된다
+    //     *      5-1) 최적이 아닌경우, return
+    //     *      5-2) path의 last가 index와 같다면, last를 pop 하고 return
+    //     */
 
-        bool bResult = false;
+    //    bool bResult = false;
 
-        //searchPath();
+    //    //searchPath();
 
 
 
-        if (Path.First != null) bResult = true;
+    //    if (Path.First != null) bResult = true;
 
-        if (bResult) return Path;
-        else return null;
-    }
+    //    if (bResult) return Path;
+    //    else return null;
+    //}
 
     private void searchPath(BlockData Start, BlockData Goal, SearchMode Mode)
     {
+        //재귀 호출의 종료
+        if (Start == Goal) return;
         /*
          - 작동 구조
          *      1) index node를 Start로 잡는다. 
@@ -175,6 +178,7 @@ public class Astar : MonoBehaviour
          *      4) 모든 방향으로 계산이 끝났다면, list를 정렬해준다. list.sort를 할 경우  적합성에 대해 오름차순으로 정렬이 된다
          *      5-1) 최적이 아닌경우, return
          *      5-2) path의 last가 index와 같다면, last를 pop 하고 return
+         *        
          */
         var indexNode = Start;
         //Start지점에서 갈 수 있는 방향 리스트
@@ -200,33 +204,40 @@ public class Astar : MonoBehaviour
         //}
 
         sortBlockDatasByCounts(ref tempPathList);
-        //print("====================after sort");
-        //foreach (var i in tempPathList)
-        //{
-        //    print("path list name : " + i.Block.name);
-        //    print("Object G Count  => " + i.GetGCount());
-        //    print("Object H Count => " + i.Hcount);
-        //    print("Object F Count => " + i.Fcount);
-        //}
+        /* 
+        print("====================after sort");
+        foreach (var i in tempPathList)
+        {
+            print("path list name : " + i.Block.name);
+            print("Object G Count  => " + i.GetGCount());
+            print("Object H Count => " + i.Hcount);
+            print("Object F Count => " + i.Fcount);
+        }
+        
+        */
         //Path경로 linked list의 첫 칸이 비었을 경우. 즉, 아무것도 없을 때
         if (Path.First == null)
         {
-            Path.AddFirst(tempPathList.First());
+            calcCounts(Start, Goal,ref Start);
+            Path.AddFirst(Start);
+            Path.AddLast(tempPathList.First());
         }
         //만약 Path 경로의 마지막 지점보다 적합성이 높다면 필요가 없다 return
-        if (Path.Last.Value.GetGCount() < tempPathList.First().GetGCount())
-        {
-            return;
-        }
-        //만약 같다면 그 길은 잘못됐다 pop
-        else if (Path.Last.Value.GetGCount() == tempPathList.First().GetGCount())
+        else if (Path.Last.Value.GetGCount() < tempPathList.First().GetGCount())
         {
             Path.RemoveLast();
+            //return;
         }
+        ////만약 같다면 그 길은 잘못됐다 pop
+        //else if (Path.Last.Value.GetGCount() == tempPathList.First().GetGCount())
+        //{
+        //    Path.RemoveLast();
+        //}
         else
         {
             Path.AddLast(tempPathList.First());
         }
+        searchPath(Path.Last.Value, Goal, Mode);
     }
 
     private int vecToNum(Vector3 from)
@@ -263,72 +274,72 @@ public class Astar : MonoBehaviour
     {
         if (Start == null || Goal == null) return;
         From.Hcount = (int) Vector3.Distance(Start.Block.GetPos(), From.Block.GetPos());
-        print("from Hcount => " + From.Hcount);
+       // print("from Hcount => " + From.Hcount);
         From.Fcount = (int) Vector3.Distance(Goal.Block.GetPos(), From.Block.GetPos());
-        print("from Fcount => " + From.Fcount);
+      //  print("from Fcount => " + From.Fcount);
     }
 
-    //갈 수 없는 방향을  리스트로 짜서 리턴한다
-    private List<neighborDirection> cheackUnableDirection(BlockData Target, SearchMode Mode)
-    {
-        List<neighborDirection> Result = new List<neighborDirection>();
-        //조사대상이 되는 BlockData의 num을 저장
-        var temp = Target.Num;
-        //전체의 좌측 하단
-        if (temp == 0)
-        {
-            Result.Add(neighborDirection.Down);
-            Result.Add(neighborDirection.Left);
-            if (Mode == SearchMode.AllWay)
-            {
-                Result.Add(neighborDirection.LDiagonalDown);
-                Result.Add(neighborDirection.LDiagonalUp);
-                Result.Add(neighborDirection.RDiagonalDown);
-            }
+    ////갈 수 없는 방향을  리스트로 짜서 리턴한다
+    //private List<neighborDirection> cheackUnableDirection(BlockData Target, SearchMode Mode)
+    //{
+    //    List<neighborDirection> Result = new List<neighborDirection>();
+    //    조사대상이 되는 BlockData의 num을 저장
+    //    var temp = Target.Num;
+    //    전체의 좌측 하단
+    //    if (temp == 0)
+    //    {
+    //        Result.Add(neighborDirection.Down);
+    //        Result.Add(neighborDirection.Left);
+    //        if (Mode == SearchMode.AllWay)
+    //        {
+    //            Result.Add(neighborDirection.LDiagonalDown);
+    //            Result.Add(neighborDirection.LDiagonalUp);
+    //            Result.Add(neighborDirection.RDiagonalDown);
+    //        }
 
-        }
-        //전체의 좌측 상단
-        else if (temp == (n_vertical - 1) * n_horizontal)
-        {
-            Result.Add(neighborDirection.Up);
-            Result.Add(neighborDirection.Left);
-            if (Mode == SearchMode.AllWay)
-            {
-                Result.Add(neighborDirection.LDiagonalDown);
-                Result.Add(neighborDirection.LDiagonalUp);
-                Result.Add(neighborDirection.RDiagonalUp);
-            }
+    //    }
+    //    전체의 좌측 상단
+    //    else if (temp == (n_vertical - 1) * n_horizontal)
+    //    {
+    //        Result.Add(neighborDirection.Up);
+    //        Result.Add(neighborDirection.Left);
+    //        if (Mode == SearchMode.AllWay)
+    //        {
+    //            Result.Add(neighborDirection.LDiagonalDown);
+    //            Result.Add(neighborDirection.LDiagonalUp);
+    //            Result.Add(neighborDirection.RDiagonalUp);
+    //        }
 
-        }
-        //전체의 우측 하단
-        else if (temp == n_horizontal)
-        {
-            Result.Add(neighborDirection.Right);
-            Result.Add(neighborDirection.Down);
-            if (Mode == SearchMode.AllWay)
-            {
-                Result.Add(neighborDirection.RDiagonalUp);
-                Result.Add(neighborDirection.RDiagonalDown);
-                Result.Add(neighborDirection.LDiagonalDown);
-            }
-        }
-        //전체의 우측 상단
-        else if (temp == n_horizontal * n_vertical - 1)
-        {
-            Result.Add(neighborDirection.Right);
-            Result.Add(neighborDirection.Up);
-            if (Mode == SearchMode.AllWay)
-            {
-                Result.Add(neighborDirection.RDiagonalUp);
-                Result.Add(neighborDirection.RDiagonalDown);
-                Result.Add(neighborDirection.LDiagonalUp);
-            }
+    //    }
+    //    전체의 우측 하단
+    //    else if (temp == n_horizontal)
+    //    {
+    //        Result.Add(neighborDirection.Right);
+    //        Result.Add(neighborDirection.Down);
+    //        if (Mode == SearchMode.AllWay)
+    //        {
+    //            Result.Add(neighborDirection.RDiagonalUp);
+    //            Result.Add(neighborDirection.RDiagonalDown);
+    //            Result.Add(neighborDirection.LDiagonalDown);
+    //        }
+    //    }
+    //    전체의 우측 상단
+    //    else if (temp == n_horizontal * n_vertical - 1)
+    //    {
+    //        Result.Add(neighborDirection.Right);
+    //        Result.Add(neighborDirection.Up);
+    //        if (Mode == SearchMode.AllWay)
+    //        {
+    //            Result.Add(neighborDirection.RDiagonalUp);
+    //            Result.Add(neighborDirection.RDiagonalDown);
+    //            Result.Add(neighborDirection.LDiagonalUp);
+    //        }
 
-        }
-        else return null;
+    //    }
+    //    else return null;
 
-        return Result;
-    }
+    //    return Result;
+    //}
 
     //갈 수 있는 방향을  리스트로 짜서 리턴한다
     private List<neighborDirection> cheackAbleDirection(BlockData Target, SearchMode Mode)
@@ -346,6 +357,15 @@ public class Astar : MonoBehaviour
 
 
         }
+        
+        //전체의 우측 하단
+        else if (temp == n_horizontal)
+        {
+            Result.Add(neighborDirection.Left);
+            Result.Add(neighborDirection.Up);
+            if (Mode == SearchMode.AllWay)
+                Result.Add(neighborDirection.LDiagonalUp);
+        }
         //전체의 좌측 상단
         else if (temp == (n_vertical - 1) * n_horizontal)
         {
@@ -354,14 +374,6 @@ public class Astar : MonoBehaviour
             if (Mode == SearchMode.AllWay)
                 Result.Add(neighborDirection.RDiagonalDown);
 
-        }
-        //전체의 우측 하단
-        else if (temp == n_horizontal)
-        {
-            Result.Add(neighborDirection.Left);
-            Result.Add(neighborDirection.Up);
-            if (Mode == SearchMode.AllWay)
-                Result.Add(neighborDirection.LDiagonalUp);
         }
         //전체의 우측 상단
         else if (temp == n_horizontal * n_vertical - 1)
@@ -372,6 +384,56 @@ public class Astar : MonoBehaviour
                 Result.Add(neighborDirection.LDiagonalDown);
 
         }
+        //전체의 최하단 라인. 밑으로 이동을 제한한다
+        else if(temp<n_horizontal)
+        {
+            Result.Add(neighborDirection.Up);
+            Result.Add(neighborDirection.Right);
+            Result.Add(neighborDirection.Left);
+            if (Mode == SearchMode.AllWay)
+            {
+                Result.Add(neighborDirection.LDiagonalUp);                
+                Result.Add(neighborDirection.RDiagonalUp);                
+            }
+        }
+        //전체의 최좌측 라인. 왼쪽으로 이동을 제한한다
+        else if(temp%n_horizontal==0)
+        {
+            Result.Add(neighborDirection.Up);
+            Result.Add(neighborDirection.Right);
+            Result.Add(neighborDirection.Down);
+            if (Mode == SearchMode.AllWay)
+            {
+                Result.Add(neighborDirection.RDiagonalUp);
+                Result.Add(neighborDirection.RDiagonalDown);
+            }
+        }
+        //전체의 최우측. 오른쪽으로 이동이 제한된다
+        else if(temp%n_horizontal==n_horizontal-1)
+        {
+            Result.Add(neighborDirection.Up);
+            Result.Add(neighborDirection.Left);
+            Result.Add(neighborDirection.Down);
+            if (Mode == SearchMode.AllWay)
+            {
+                Result.Add(neighborDirection.LDiagonalUp);
+                Result.Add(neighborDirection.LDiagonalDown);
+            }
+
+        }
+        //전체의 최상단. 위로 이동이 제한된다
+        else if(temp%n_horizontal==n_vertical-1)
+        {
+            Result.Add(neighborDirection.Right);
+            Result.Add(neighborDirection.Left);
+            Result.Add(neighborDirection.Down);
+            if (Mode == SearchMode.AllWay)
+            {
+                Result.Add(neighborDirection.LDiagonalDown);
+                Result.Add(neighborDirection.RDiagonalDown);
+            }
+        }
+
         else
         {
             Result.Add(neighborDirection.Up);
@@ -501,7 +563,17 @@ public class Astar : MonoBehaviour
         return target;
     }
 
+       private void paintPath()
+    {
+        var index = Path.First;
         
+        while(index!=null)
+        {
+            print("lets paint");
+            index.Value.Block.ChangeToPath();
+            index = index.Next;
+        }
+    }
 
       
 }
