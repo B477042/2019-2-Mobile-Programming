@@ -35,7 +35,7 @@ public class MusicNodeLine : MonoBehaviour
     private const float PerfectRange = 0.0f;
 
     //각 줄에 대한 Linkedlist
-    [SerializeField] public LinkedList<MusicNode> Line;
+    [SerializeField] public LinkedList<GameObject> Line;
 
     public  Vector3 LinePos;
     public Vector3 LineSpawnPos;
@@ -48,7 +48,7 @@ public class MusicNodeLine : MonoBehaviour
 
     private void Awake()
     {
-        Line =new LinkedList<MusicNode>();
+        Line =new LinkedList<GameObject>();
         //ALine=new List<MusicNode>();
         //DLine =new List<MusicNode>();
         //FLine=new List<MusicNode>();
@@ -67,7 +67,8 @@ public class MusicNodeLine : MonoBehaviour
         if (Line.Count == 0) return;
         foreach(var index in Line)
         {
-            index.Drop(LinePos, speed);
+            if (index.GetComponent<MusicNode>())
+                index.GetComponent<MusicNode>().Drop(LinePos, speed);
         }
     }
     //버튼이 눌렸을 때, 그것의 콤보 결과 값을 리턴해준다. 
@@ -93,7 +94,7 @@ public class MusicNodeLine : MonoBehaviour
                 
                 break;
             case ComboResult.Good:
-                Line.First.Value.PopNode();
+                Line.First.Value.GetComponent<MusicNode>().PopNode();
                 Line.RemoveFirst();
                 break;
             case ComboResult.Great:
@@ -103,10 +104,10 @@ public class MusicNodeLine : MonoBehaviour
 
         }
     }
-    public MusicNode CraeteNode()
+    public GameObject CraeteNode()
     {
-        MusicNode newNode = new MusicNode();
-        newNode.gameObject.transform.position=LineSpawnPos;
+        var newNode = Resources.Load("MusicNode")as GameObject;
+        newNode.transform.position = LineSpawnPos;
         Line.AddLast(newNode);
         return newNode;
     }

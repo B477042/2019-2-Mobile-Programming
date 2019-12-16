@@ -10,7 +10,7 @@ public class MusicPlayer : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        initNodeLines();
     }
 
     // Update is called once per frame
@@ -18,4 +18,6 @@ public class MusicPlayer : MonoBehaviour
     {
         
     }
+
+
 }
