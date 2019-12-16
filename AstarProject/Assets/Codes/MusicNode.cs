@@ -6,11 +6,17 @@ using UnityEngine;
 //하늘에서 내려오는 그것
 public class MusicNode : MonoBehaviour
 {
-  private  Renderer renderer;
+    protected List<Material> paths;
     // Start is called before the first frame update
+    private void Awake()
+    {
+        paths = new List<Material>();
+        for (int i = 0; i < 4; i++)
+            paths.Add(Resources.Load("Path" + i) as Material);
+    }
     void Start()
     {
-        renderer = GetComponent<Renderer>();
+        ColorMatching();
         
     }
 
@@ -19,9 +25,9 @@ public class MusicNode : MonoBehaviour
     {
         
     }
-    public void ChangeColor(Color newColor)
+    public void ColorMatching()
     {
-        renderer.material.color = newColor;
+        gameObject.GetComponent<Renderer>().material = paths[0];
     }
     public Vector3 GetPos()
     {
@@ -31,8 +37,9 @@ public class MusicNode : MonoBehaviour
     {
         Destroy(this);
     }
-    public void BeingPossed(MusicNodeController nodeController)
+
+    public void Drop(Vector3 goal,float speed)
     {
-        
+        transform.position-=Vector3.MoveTowards(GetPos(), goal, speed);
     }
 }

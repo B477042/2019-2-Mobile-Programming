@@ -14,7 +14,7 @@ public class Block : MonoBehaviour
     private BlockType myType;
     private Material wall;
     private Material plain;
-    private List<Material> paths;
+   protected List<Material> paths;
     // Start is called before the first frame update
     void Start()
     {
@@ -54,4 +54,5 @@ public class Block : MonoBehaviour
         myType = BlockType.plain;
         gameObject.GetComponent<Renderer>().material = plain;
     }
+    public 
 }
