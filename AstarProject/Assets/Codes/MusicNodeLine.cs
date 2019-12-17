@@ -74,11 +74,15 @@ public class MusicNodeLine : MonoBehaviour
         {
             if (index == null)
             {
-                print("NULLL");
+                
                 continue;
             }
+            
                 index.Drop( speed);
         }
+
+        if (Line.First.Value.GetPos().y < 0.0f)
+            Line.RemoveFirst();
     }
     //버튼이 눌렸을 때, 그것의 콤보 결과 값을 리턴해준다. 
     private ComboResult CheackCombo()

@@ -274,14 +274,14 @@ public class Astar : MonoBehaviour
         //}
         if (ablePathListToBlockData[0].GetFCount()>OpenedList[0].GetFCount())
         {
-            Path.RemoveLast();
+           // Path.RemoveLast();
 
         }
         else
         {
-            Path.AddLast(ablePathListToBlockData[0]);
+           // Path.AddLast(ablePathListToBlockData[0]);
         }
-        searchPath(Path.Last.Value, Goal, Mode);
+        searchPath(OpenedList[0], Goal, Mode);
 
 
 
