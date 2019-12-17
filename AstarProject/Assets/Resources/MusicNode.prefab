@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 8658051660373282495}
   m_Layer: 0
   m_Name: MusicNode
-  m_TagString: Untagged
+  m_TagString: MusicNode
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

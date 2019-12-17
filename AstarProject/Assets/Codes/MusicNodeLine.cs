@@ -15,13 +15,13 @@ using UnityEngine;
     Perfect
 
 }
-public struct NodeLine
-{
-    public List<MusicNode> Line;
-    public string LineName;
-    public Vector3 LineZeroPoint;
+//public struct NodeLine
+//{
+//    public List<MusicNode> Line;
+//    public string LineName;
+//    public Vector3 LineZeroPoint;
 
-}
+//}
 public class MusicNodeLine : MonoBehaviour
 {
     private const float DetectRange = 3.0f;
@@ -34,8 +34,10 @@ public class MusicNodeLine : MonoBehaviour
 
     private const float PerfectRange = 0.0f;
 
+    private const float Interval = 0.3f;
+    private float timer;
     //각 줄에 대한 Linkedlist
-    [SerializeField] public LinkedList<GameObject> Line;
+    [SerializeField] public LinkedList<MusicNode> Line;
 
     public  Vector3 LinePos;
     public Vector3 LineSpawnPos;
@@ -48,27 +50,30 @@ public class MusicNodeLine : MonoBehaviour
 
     private void Awake()
     {
-        Line =new LinkedList<GameObject>();
+        Line =new LinkedList<MusicNode>();
         //ALine=new List<MusicNode>();
         //DLine =new List<MusicNode>();
         //FLine=new List<MusicNode>();
          speed = 0.5f;
-       
+        timer = 0.0f;
     }
     // Start is called before the first frame update
     void Start()
     {
-        
+        //EventManger.Instance.AddEvent(EventType.CheackA, )
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (timer > 0.0f) timer -= Time.deltaTime;
+        else if (timer < 0.0f) timer = 0.0f;
+
         if (Line.Count == 0) return;
         foreach(var index in Line)
         {
-            if (index.GetComponent<MusicNode>())
-                index.GetComponent<MusicNode>().Drop(LinePos, speed);
+            
+                index.Drop(LinePos, speed);
         }
     }
     //버튼이 눌렸을 때, 그것의 콤보 결과 값을 리턴해준다. 
@@ -82,38 +87,48 @@ public class MusicNodeLine : MonoBehaviour
         else return ComboResult.None;
     }
     //결과에 따라 팝 처리
-    public void Pop(ComboResult result)
+    public void TryPop()
     {
+        ComboResult result = CheackCombo();
         switch(result)
         {
             case ComboResult.None:
                 return;
-                break;
+                
                 //miss가 뜬다면 다시 누를 수 없어야 된다
             case ComboResult.Miss:
-                
+                Line.RemoveFirst();
                 break;
             case ComboResult.Good:
-                Line.First.Value.GetComponent<MusicNode>().PopNode();
+                Line.First.Value.PopNode();
                 Line.RemoveFirst();
                 break;
             case ComboResult.Great:
+                Line.First.Value.PopNode();
+                Line.RemoveFirst();
                 break;
             case ComboResult.Perfect:
+                Line.First.Value.PopNode();
+                Line.RemoveFirst();
                 break;
 
         }
     }
-    public GameObject CraeteNode()
+    public void CraeteNode()
     {
-        var newNode = Resources.Load("MusicNode")as GameObject;
+        if (timer == 0.0f) return; 
+
+
+
+        var newNode = Resources.Load("MusicNode")as MusicNode;
         newNode.transform.position = LineSpawnPos;
         Line.AddLast(newNode);
-        return newNode;
+        timer = Interval;
+        
     }
     
 
-    public static  void increaseSpeed()
+    public static  void IncreaseSpeed()
     {
         speed += 0.5f;
     }

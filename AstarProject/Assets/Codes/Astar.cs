@@ -98,8 +98,22 @@ public class Astar : MonoBehaviour
     [SerializeField] private List<BlockData> BlockList; //모든 블럭들의 리스트 위치
 
     [SerializeField] private int n_horizontal, n_vertical; //map의 가로세로
-    //private SearchMode searchMode;
+                                                           //private SearchMode searchMode;
 
+
+    private static Astar instance = null;
+    public static Astar Instance { get { return instance; } }
+    private void Awake()
+    {
+        if (instance != null)
+        {
+            DestroyImmediate(gameObject);
+            return;
+        }
+        instance = this;
+        DontDestroyOnLoad(this);
+
+    }
     // Start is called before the first frame update
     void Start()
     {
