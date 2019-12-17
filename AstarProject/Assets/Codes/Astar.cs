@@ -590,7 +590,7 @@ public class Astar : MonoBehaviour
         while(index!=null)
         {
             print("lets paint");
-            index.Value.Block.ChangeToPath();
+            index.Value.Block.ChangeToPathA();
             index = index.Next;
         }
     }

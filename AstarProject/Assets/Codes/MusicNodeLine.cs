@@ -41,7 +41,7 @@ public class MusicNodeLine : MonoBehaviour
 
     public  Vector3 LinePos;
     public Vector3 LineSpawnPos;
-    public  string LineName;
+    public  LineName LineName;
     //[SerializeField] public List<MusicNode> ALine;
     //[SerializeField] public List<MusicNode> DLine;
     //[SerializeField] public List<MusicNode> FLine;
@@ -138,10 +138,9 @@ public class MusicNodeLine : MonoBehaviour
         speed -= 0.5f;
         if (speed < 0.0f) speed = 0.0f;
     }
-    public void InitLine(Vector3 LinePos, Vector3 SpawnPos, string Name)
+   
+    public void SetLineName(LineName name)
     {
-        this.LinePos = LinePos;
-        this.LineSpawnPos = SpawnPos;
-        this.LineName = Name;
+        LineName = name;
     }
 }

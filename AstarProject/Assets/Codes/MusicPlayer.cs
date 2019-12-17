@@ -8,14 +8,14 @@ public enum LineName
  }
 public class MusicPlayer : MonoBehaviour
 {
-    
-    private Dictionary<LineName, MusicNodeLine> dicLines=new Dictionary<LineName, MusicNodeLine>();
-   
+
+    private Dictionary<LineName, MusicNodeLine> dicLines = new Dictionary<LineName, MusicNodeLine>();
+
     [SerializeField] public int HP;
     [SerializeField] public int Score;
     [SerializeField] public int CurrentCombo;
     private const int MaxHP = 100;
-    
+
 
 
     private static MusicPlayer instance = null;
@@ -33,36 +33,61 @@ public class MusicPlayer : MonoBehaviour
         HP = MaxHP;
         Score = 0;
         CurrentCombo = 0;
+        dicLines = new Dictionary<LineName, MusicNodeLine>();
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        initNodeLines();
 
+
+        //for (int i = 1; i <= 4; i++)
+        //{
+        //    var index = (LineName)i;
+        //    dicLines[index].transform.position = new Vector3(-10.0f + 2.0f * i, 0.0f, 0.0f);
+        //    dicLines[index].SetLineName(index);
+        //    print(index.ToString() + "'s positon" + dicLines[index].transform.position.ToString());
+        //}
+        initNodeLines();
         EventManger.Instance.AddEvent(EventType.CheackA, cheackLineA);
         EventManger.Instance.AddEvent(EventType.CheackS, cheackLineS);
         EventManger.Instance.AddEvent(EventType.CheackD, cheackLineD);
         EventManger.Instance.AddEvent(EventType.CheackF, cheackLineF);
-        EventManger.Instance.AddEvent(EventType.Damaged,ReduceHP);
+        EventManger.Instance.AddEvent(EventType.Damaged, ReduceHP);
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
     private void initNodeLines()
     {
-        dicLines.Add(LineName.A, new MusicNodeLine());
-        dicLines.Add(LineName.S, new MusicNodeLine());
-        dicLines.Add(LineName.D, new MusicNodeLine());
-        dicLines.Add(LineName.F, new MusicNodeLine());
+
+        //{
+        //    { LineName.A, new MusicNodeLine() },
+        //    { LineName.S, new MusicNodeLine()},
+        //    { LineName.D, new MusicNodeLine()},
+        //    { LineName.F, new MusicNodeLine()}
+        //};
         
-        
-        for(int i=0;i<4;i++)
+        //dicLines.Add(LineName.A, new MusicNodeLine());
+        //dicLines.Add(LineName.S, new MusicNodeLine());
+        //dicLines.Add(LineName.D, new MusicNodeLine());
+        //dicLines.Add(LineName.F, new MusicNodeLine());
+        dicLines.Add(LineName.A, gameObject.AddComponent<MusicNodeLine>());
+        dicLines.Add(LineName.S, gameObject.AddComponent<MusicNodeLine>());
+        dicLines.Add(LineName.D, gameObject.AddComponent<MusicNodeLine>());
+        dicLines.Add(LineName.F, gameObject.AddComponent<MusicNodeLine>());
+
+        print("Added");
+        for (int i=0;i<4;i++)
         {
-            dicLines[(LineName)i].transform.position = new Vector3(-10.0f - 2.0f * i, 0.0f, 0.0f);
+            var index = (LineName)i;
+            dicLines[index].LinePos = new Vector3(-10.0f + 2.0f * i, 0.0f, 0.0f);
+            dicLines[index].LineSpawnPos= new Vector3(-10.0f + 2.0f * i, 10.0f, 0.0f);
+            dicLines[index].SetLineName(index);
+            print(index.ToString() + "'s positon"+dicLines[index].LinePos);
         }
     }
     public MusicNodeLine GetNodeLine(LineName name)
