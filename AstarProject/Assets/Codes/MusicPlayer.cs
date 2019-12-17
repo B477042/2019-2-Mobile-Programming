@@ -15,7 +15,7 @@ public class MusicPlayer : MonoBehaviour
     [SerializeField] public int Score;
     [SerializeField] public int CurrentCombo;
     private const int MaxHP = 100;
-
+    public bool Power;
 
 
     private static MusicPlayer instance = null;
@@ -33,6 +33,7 @@ public class MusicPlayer : MonoBehaviour
         HP = MaxHP;
         Score = 0;
         CurrentCombo = 0;
+        Power = true;
         dicLines = new Dictionary<LineName, MusicNodeLine>();
     }
 
@@ -59,7 +60,7 @@ public class MusicPlayer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        Play();
     }
     private void initNodeLines()
     {
@@ -110,9 +111,10 @@ public class MusicPlayer : MonoBehaviour
     private void ReduceHP()
     {
         CurrentCombo = 0;
-        HP -= 15;
+        HP -= 5;
+        if (HP < 0) EventManger.Instance.Broadcast(EventType.HPIsZero);
     }
-    private void AddScore(ComboResult combo)
+    public void AddScore(ComboResult combo)
     {
         switch(combo)
         {
@@ -137,7 +139,9 @@ public class MusicPlayer : MonoBehaviour
     }
     public void Play()
     {
-        
+        int randomNum=(int)Random.Range(0.0f, 4.0f);
+        dicLines[(LineName)randomNum].CraeteNode();
+        print("쾅!"+randomNum);
     }
     private void cheackLineA()
     {
@@ -155,5 +159,10 @@ public class MusicPlayer : MonoBehaviour
     private void cheackLineF()
     {
         dicLines[LineName.F].TryPop();
+    }
+    private void HpIsZero()
+    {
+        
+        
     }
 }

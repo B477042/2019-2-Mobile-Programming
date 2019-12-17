@@ -13,8 +13,8 @@ using UnityEngine;
 public struct BlockData
 {
     public int Num; //객체 번호
-    public int Hcount; //출발 지점까지 거리, 초기값 -1
-    public int Fcount; //도착 지점까지 거리, 초기값 -1
+    public int GCount; //출발 지점에서부터 이동한 거리, 초기값 -1
+    public int HCount; //도착 지점까지 거리, 초기값 -1
 
     public Block Block;
 
@@ -56,17 +56,17 @@ public struct BlockData
     }
 
     //적합도 반환
-    public int GetGCount()
+    public int GetFCount()
     {
-        return Hcount + Fcount;
+        return GCount + HCount;
     }
 
     public void Copy(BlockData Other)
     {
         this.Num = Other.Num;
         this.Block = Other.Block;
-        this.Hcount = Other.Hcount;
-        this.Fcount = Other.Fcount;
+        this.GCount = Other.GCount;
+        this.HCount = Other.HCount;
     }
 
 }
@@ -124,7 +124,7 @@ public class Astar : MonoBehaviour
         BuildMap(10, 10);
 
         //여기서 null reference가 일어난다
-        StartSearch(findBlockByNum(0), findBlockByNum(93), SearchMode.FourWay);
+        StartSearch(findBlockByNum(0), findBlockByNum(99), SearchMode.FourWay);
         
     }
 
@@ -192,6 +192,7 @@ public class Astar : MonoBehaviour
     {
         //재귀 호출의 종료
         if (Path.Last.Value == Goal) return;
+        if (Path.Count > 30) return;
         /*
          - 작동 구조
          *      1) index node를 Start로 잡는다. 
@@ -213,47 +214,26 @@ public class Astar : MonoBehaviour
             var temp = findBlockByDirection(indexNode, i);
             //print("temp의 객체 번호 : " + temp.Num);
 
-           
                 calcCounts(indexNode, Goal, ref temp);
                  tempPathList.Add(temp);
             
-
-            
-
         }
 
-        //print("====================before sort");
-        ////정렬을 해둔다
-        //foreach (var i in tempPathList)
-        //{
-        //    print("path list name : " + i.Block.name);
-        //    print("Object G Count  => " + i.GetGCount());
-        //    print("Object H Count => " + i.Hcount);
-        //    print("Object F Count => " + i.Fcount);
-        //}
 
         sortBlockDatasByCounts(ref tempPathList);
-        /* 
-        print("====================after sort");
-        foreach (var i in tempPathList)
-        {
-            print("path list name : " + i.Block.name);
-            print("Object G Count  => " + i.GetGCount());
-            print("Object H Count => " + i.Hcount);
-            print("Object F Count => " + i.Fcount);
-        }
-        
-        */
+
+
+
         //Path경로 linked list의 첫 칸이 비었을 경우. 즉, 아무것도 없을 때
-        //if (Path.First == null)
-        //{
-            
-        //    Path.AddLast(tempPathList.First());
-        //}
-        //만약 Path 경로의 마지막 지점보다 적합성이 높다면 필요가 없다 return
-        if (Path.Last.Value.GetGCount() < tempPathList.First().GetGCount())
+        if (Path.Count == 1)
         {
-            
+
+            Path.AddLast(tempPathList.First());
+        }
+        //만약 Path 경로의 마지막 지점보다 적합성이 높다면 필요가 없다 return
+        else if (Path.Last.Value.GetFCount() < tempPathList.First().GetFCount())
+        {
+            Path.RemoveLast();
             return;
         }
         ////만약 갈 길이 막혔다면 그 길은 잘못됐다 pop
@@ -264,15 +244,16 @@ public class Astar : MonoBehaviour
         //}
        // else
        // {
-            
+              
         //}
         //for(int i=Path.Count-1;i>=0;i+)
       for(int i=0;i<tempPathList.Count;i++)
         {
             if (Path.Last.Value == Goal) return;
-            if (Path.Last.Value == tempPathList[i]) Path.RemoveLast();
+           // if (Path.Last.Value == tempPathList[i]) Path.RemoveLast();
+              Path.AddLast(tempPathList[i]);
             searchPath(tempPathList[i], Goal, Mode);
-            Path.AddLast(tempPathList[i]);
+          
         }
             
        
@@ -303,17 +284,17 @@ public class Astar : MonoBehaviour
         newBlockData.Block = tempObj.GetComponent<Block>();
         // newBlockData.Block = Instantiate(Resources.Load("Block"), newPos, Quaternion.identity )as GameObject;
         newBlockData.Num = index;
-        newBlockData.Fcount = -1;
-        newBlockData.Hcount = -1;
+        newBlockData.HCount = -1;
+        newBlockData.GCount = -1;
         BlockList.Add(newBlockData);
     }
 
-    private void calcCounts(BlockData Start, BlockData Goal, ref BlockData From) //원점, 도착점, 대상점
+    private void calcCounts(BlockData Start, BlockData Goal, ref BlockData From) //시작 점, 도착점, 대상점
     {
         if (Start == null || Goal == null) return;
-        From.Hcount = (int) Vector3.Distance(Start.Block.GetPos(), From.Block.GetPos());
+        From.GCount = (int) Vector3.Distance(Start.Block.GetPos(), From.Block.GetPos());
        // print("from Hcount => " + From.Hcount);
-        From.Fcount = (int) Vector3.Distance(Goal.Block.GetPos(), From.Block.GetPos());
+        From.HCount = (int) Vector3.Distance(Goal.Block.GetPos(), From.Block.GetPos());
       //  print("from Fcount => " + From.Fcount);
     }
 
@@ -558,7 +539,7 @@ public class Astar : MonoBehaviour
             for (int j = i + 1; j < target.Count; j++)
             {
 
-                if (target[i].GetGCount() >= target[j].GetGCount())
+                if (target[i].GetFCount() >= target[j].GetFCount())
                 {
                     var temp = target[i];
                     target[i] = target[j];
@@ -605,6 +586,6 @@ public class Astar : MonoBehaviour
             BlockList[index].Block.ChangeToWall();
         }
     }
-    
+  
 }
 

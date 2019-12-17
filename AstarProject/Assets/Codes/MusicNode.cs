@@ -18,6 +18,7 @@ public class MusicNode : MonoBehaviour
     {
         ColorMatching();
         
+        
     }
 
     // Update is called once per frame
@@ -31,15 +32,17 @@ public class MusicNode : MonoBehaviour
     }
     public Vector3 GetPos()
     {
-        return transform.position;
+        return gameObject.transform.position;
     }
     public void PopNode()
     {
-        Destroy(this);
+        print("Die");
+        Destroy(gameObject);
     }
 
-    public void Drop(Vector3 goal,float speed)
+    public void Drop(float speed)
     {
-        transform.position-=Vector3.MoveTowards(GetPos(), goal, speed);
+        
+        gameObject.transform.position+=Vector3.down*speed;
     }
 }

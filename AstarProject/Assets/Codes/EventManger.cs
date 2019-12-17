@@ -9,7 +9,8 @@ public enum EventType
     CheackD=2,
     CheackF=3,
    
-    Damaged
+    Damaged=4,
+    HPIsZero=5
 
 }
 

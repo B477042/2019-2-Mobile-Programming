@@ -34,7 +34,7 @@ public class MusicNodeLine : MonoBehaviour
 
     private const float PerfectRange = 0.0f;
 
-    private const float Interval = 0.3f;
+    private const float Interval = 2.0f;
     private float timer;
     //각 줄에 대한 Linkedlist
     [SerializeField] public LinkedList<MusicNode> Line;
@@ -54,7 +54,7 @@ public class MusicNodeLine : MonoBehaviour
         //ALine=new List<MusicNode>();
         //DLine =new List<MusicNode>();
         //FLine=new List<MusicNode>();
-         speed = 0.5f;
+         speed = 0.05f;
         timer = 0.0f;
     }
     // Start is called before the first frame update
@@ -72,15 +72,21 @@ public class MusicNodeLine : MonoBehaviour
         if (Line.Count == 0) return;
         foreach(var index in Line)
         {
-            
-                index.Drop(LinePos, speed);
+            if (index == null)
+            {
+                print("NULLL");
+                continue;
+            }
+                index.Drop( speed);
         }
     }
     //버튼이 눌렸을 때, 그것의 콤보 결과 값을 리턴해준다. 
     private ComboResult CheackCombo()
     {
-        float distance = Vector3.Distance(LinePos, Line.First.Value.GetPos());
-        if (distance <= PerfectRange) return ComboResult.Perfect;
+        //float distance = Vector3.Distance(LinePos, Line.First.Value.GetPos());
+        float distance = Line.First.Value.GetPos().y - 0.0f;
+        if (distance < 0.0f) return ComboResult.Miss;
+        else if (distance <= PerfectRange) return ComboResult.Perfect;
         else if (distance <= GreatRange) return ComboResult.Great;
         else if (distance <= GoodRange) return ComboResult.Good;
         else if (distance <= MissRange) return ComboResult.Miss;
@@ -93,36 +99,46 @@ public class MusicNodeLine : MonoBehaviour
         switch(result)
         {
             case ComboResult.None:
+                
                 return;
                 
                 //miss가 뜬다면 다시 누를 수 없어야 된다
             case ComboResult.Miss:
+                print("Miss");
+                Line.First.Value.PopNode();
                 Line.RemoveFirst();
                 break;
             case ComboResult.Good:
+                timer = 0.0f;
+                print("Good!");
                 Line.First.Value.PopNode();
                 Line.RemoveFirst();
                 break;
             case ComboResult.Great:
+                timer = 0.0f;
+                print("Great!");
                 Line.First.Value.PopNode();
                 Line.RemoveFirst();
                 break;
             case ComboResult.Perfect:
+                timer = 0.0f;
+                print("Perfcet!!");
                 Line.First.Value.PopNode();
                 Line.RemoveFirst();
                 break;
 
         }
+        MusicPlayer.Instance.AddScore(result);
     }
     public void CraeteNode()
     {
-        if (timer == 0.0f) return; 
+        if (timer != 0.0f) return;
 
 
-
-        var newNode = Resources.Load("MusicNode")as MusicNode;
+        //GameObject newBlocks= Instantiate(Resources.Load(BlockDic.Dic[BlockName], typeof(GameObject)) as GameObject);
+        GameObject newNode = Instantiate(Resources.Load("MusicNode", typeof(GameObject)) as GameObject);
         newNode.transform.position = LineSpawnPos;
-        Line.AddLast(newNode);
+        Line.AddLast( newNode.GetComponent<MusicNode>());
         timer = Interval;
         
     }
@@ -130,12 +146,12 @@ public class MusicNodeLine : MonoBehaviour
 
     public static  void IncreaseSpeed()
     {
-        speed += 0.5f;
+        speed *= 2.0f;
     }
     public static void DecreaseSpeed()
     {
-        
-        speed -= 0.5f;
+
+        speed /= 2.0f;
         if (speed < 0.0f) speed = 0.0f;
     }
    

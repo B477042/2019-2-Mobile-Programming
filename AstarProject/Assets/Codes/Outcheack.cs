@@ -21,15 +21,18 @@ public class Outcheack : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+       
     }
-    private void OnTriggerEnter(Collider other)
+    void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "MusicNode")
-        {
-            if (other.GetComponent<MusicNode>())
-                other.GetComponent<MusicNode>().PopNode();
-            EventManger.Instance.Broadcast(EventType.Damaged);
-        }
+        print("OUTTTT!!");
+        EventManger.Instance.Broadcast(EventType.Damaged);
+        Destroy(other.gameObject);
+        //if (other.tag == "MusicNode")
+        //{
+        //    if (other.GetComponent<MusicNode>())
+        //        other.GetComponent<MusicNode>().PopNode();
+        //    EventManger.Instance.Broadcast(EventType.Damaged);
+        //}
     }
 }

@@ -18,7 +18,7 @@ public class AstarData : MonoBehaviour
         }
         instance = this;
         DontDestroyOnLoad(this);
-        WallList =new List<int>{ 21,23,41,34,33,52,59,64,13,77,72,85,87,82,66,68,61,27,11,46};
+        WallList =new List<int>{ 21,23,41,34,33,52,59,64,13,77,72,66,68,61,27,11,46};
         WallList.Sort();
         DestnationPos = new List<int> { };
     }
