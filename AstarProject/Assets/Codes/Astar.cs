@@ -13,8 +13,8 @@ using UnityEngine;
 public struct BlockData
 {
     public int Num; //객체 번호
-    public int GCount; //출발 지점에서부터 이동한 거리, 초기값 -1
-    public int HCount; //도착 지점까지 거리, 초기값 -1
+    public float GCount; //출발 지점에서부터 이동한 거리, 초기값 -1
+    public float HCount; //도착 지점까지 거리, 초기값 -1
 
     public Block Block;
 
@@ -56,7 +56,7 @@ public struct BlockData
     }
 
     //적합도 반환
-    public int GetFCount()
+    public float GetFCount()
     {
         return GCount + HCount;
     }
@@ -95,11 +95,12 @@ public class Astar : MonoBehaviour
 
     [SerializeField] private List<bool> wallList;
 
-    [SerializeField] private List<BlockData> BlockList; //모든 블럭들의 리스트 위치
+    private List<BlockData> BlockList; //모든 블럭들의 리스트 위치
 
     [SerializeField] private int n_horizontal, n_vertical; //map의 가로세로
                                                            //private SearchMode searchMode;
-
+    private List<BlockData> OpenedList;
+    private List<BlockData> VisitedList;
 
     private static Astar instance = null;
     public static Astar Instance { get { return instance; } }
@@ -120,11 +121,13 @@ public class Astar : MonoBehaviour
         Path = new LinkedList<BlockData>();
         wallList = new List<bool>();
         BlockList = new List<BlockData>();
+        VisitedList = new List<BlockData>();
+        OpenedList = new List<BlockData>();
         //searchMode = SearchMode.FourWay;
         BuildMap(10, 10);
 
         //여기서 null reference가 일어난다
-        StartSearch(findBlockByNum(0), findBlockByNum(99), SearchMode.FourWay);
+        StartSearch(findBlockByNum(0), findBlockByNum(89), SearchMode.FourWay);
         
     }
 
@@ -184,79 +187,147 @@ public class Astar : MonoBehaviour
         //A*를 이용하여 경로를 찾아준다
         calcCounts(Start, Goal, ref Start);
         Path.AddFirst(Start);
+        OpenedList.Add(Start);
+        //VisitedList.Add(Start);
         searchPath(Start, Goal, mode);
         paintPath();
         return Path;
     }
-    private void searchPath(BlockData Start, BlockData Goal, SearchMode Mode)
+    private void searchPath(BlockData Current, BlockData Goal, SearchMode Mode)
     {
         //재귀 호출의 종료
         if (Path.Last.Value == Goal) return;
-        if (Path.Count > 30) return;
+        //debug용, stack overflow방지
+        //if (Path.Count > 120) {
+        //    print("뻥!!!!");
+        //        return; }
         /*
          - 작동 구조
-         *      1) index node를 Start로 잡는다. 
+         *      1) index node를 Current로 잡는다. 
          *      2) index node로 갈 수 있는 지점들을 검사한다. 
                     BlockData를 계산해준다. 
          *      3) 나온 값들은 list에 임시로 담아둔다. 
          *      4) 모든 방향으로 계산이 끝났다면, list를 정렬해준다. list.sort를 할 경우  적합성에 대해 오름차순으로 정렬이 된다
+         *      
          *      5-1) 최적이 아닌경우, return
          *      5-2) path의 last가 index와 같다면, last를 pop 하고 return
          *        
          */
-        var indexNode = Start;
-        //Start지점에서 갈 수 있는 방향 리스트
-        var ablePathList = cheackAbleDirection(indexNode, Mode);
-        List<BlockData> tempPathList = new List<BlockData>();
+        VisitedList.Add(Current);
+        OpenedList.Remove(Current);
+       // Current;
+        //Current지점에서 갈 수 있는 방향 리스트
+        var ablePathList = cheackAbleDirection(Current, Mode);
+       List<BlockData> ablePathListToBlockData = new List<BlockData>();
         //able path list를 이용하여 갈수 있는 방향의 블럭들을 리스트로 만들어준다
-        foreach (var i in ablePathList)
+        foreach (var direction in ablePathList)
         {
-            var temp = findBlockByDirection(indexNode, i);
+            //방향들이 들어있는 리스트를 이용하여 갈 수 있는 방향의 블럭을 방향을 이용해 찾아온다.
+            var temp = findBlockByDirection(Current, direction);
             //print("temp의 객체 번호 : " + temp.Num);
 
-                calcCounts(indexNode, Goal, ref temp);
-                 tempPathList.Add(temp);
+            //만약 방문노드에 있었다면 가능한 리스트에서 빼버린다
+            if (VisitedList.Contains(temp))
+            {
+                ablePathList.Remove(direction);
+
+            }
+
+            else
+            {
+                if (!temp.Block.IsWall())
+                {//ablePathListToBlockData.Add(temp);
+                    calcCounts(Current, Goal, ref temp);
+                    ablePathListToBlockData.Add(temp);
+                    //적합도가 최적인 경우
+                    //if (Path.Last.Value.GetFCount() <= temp.GetFCount())                
+                    //    Path.AddLast(temp);
+
+
+                    //else
+                    //    Path.RemoveLast();
+                    //searchPath(Path.Last.Value, Goal, Mode);
+                }
+            }
+                
+               //  tempPathList.Add(temp);
             
         }
-
-
-        sortBlockDatasByCounts(ref tempPathList);
-
-
-
-        //Path경로 linked list의 첫 칸이 비었을 경우. 즉, 아무것도 없을 때
-        if (Path.Count == 1)
-        {
-
-            Path.AddLast(tempPathList.First());
-        }
-        //만약 Path 경로의 마지막 지점보다 적합성이 높다면 필요가 없다 return
-        else if (Path.Last.Value.GetFCount() < tempPathList.First().GetFCount())
+        //갈 수 있는 방향의 리스트들을 구했으면 opened list에 넣어준다
+        
+        
+        OpenedList .AddRange( ablePathListToBlockData);
+        sortBlockDatasByCounts(ref ablePathListToBlockData);
+        sortBlockDatasByCounts(ref OpenedList);
+        //새로 갈 수 있게된 노드들 중에서 제일 적합성이 작은 것과 openedlist의 적합성이 제일 낮은 것을 비교
+        //if (ablePathListToBlockData[0].GetFCount() < OpenedList[0].GetFCount())
+        //{
+        //    //경로에서 제거
+        //    Path.RemoveLast();
+        //    searchPath(Path.Last.Value, Goal, Mode);
+        //}
+        //else
+        //{
+        //    //가장 적합성이 낮은 것을 고른다
+        //    Path.AddLast(OpenedList[0]);
+        //    searchPath(Path.Last.Value, Goal, Mode);
+        //}
+        if (ablePathListToBlockData[0].GetFCount()>OpenedList[0].GetFCount())
         {
             Path.RemoveLast();
-            return;
+
         }
+        else
+        {
+            Path.AddLast(ablePathListToBlockData[0]);
+        }
+        searchPath(Path.Last.Value, Goal, Mode);
+
+
+
+
+        // sortBlockDatasByCounts(ref tempPathList);
+
+
+
+        ////Path경로 linked list의 첫 칸이 비었을 경우. 즉, 아무것도 없을 때
+        //if (Path.Count == 1)
+        //{
+
+        //    Path.AddLast(tempPathList.First());
+        //}
+        ////만약 Path 경로의 마지막 지점보다 적합성이 높다면 필요가 없다 return
+        //if (Path.Last.Value.GetFCount() < tempPathList.First().GetFCount())
+        //{
+        //    Path.RemoveLast();
+        //    searchPath(Path.Last.Value, Goal, Mode);
+        //    //return;
+        //}
         ////만약 갈 길이 막혔다면 그 길은 잘못됐다 pop
         //else if (tempPathList.Count==0)
         //{
         //    print("it blocked");
         //    return;
         //}
-       // else
-       // {
-              
+        // else
+        // {
+
         //}
         //for(int i=Path.Count-1;i>=0;i+)
-      for(int i=0;i<tempPathList.Count;i++)
-        {
-            if (Path.Last.Value == Goal) return;
-           // if (Path.Last.Value == tempPathList[i]) Path.RemoveLast();
-              Path.AddLast(tempPathList[i]);
-            searchPath(tempPathList[i], Goal, Mode);
-          
-        }
-            
-       
+        //for(int i=0;i<tempPathList.Count;i++)
+        //  {
+        //      if (Path.Last.Value == Goal) return;
+        //     // if (Path.Last.Value == tempPathList[i]) Path.RemoveLast();
+        //        Path.AddLast(tempPathList[i]);
+        //      searchPath(tempPathList[i], Goal, Mode);
+
+        //  }
+        //else
+        //{
+        //    Path.AddLast(tempPathList[0]);
+        //    searchPath(Path.Last.Value, Goal, Mode);
+        //}
+
     }
 
     private int vecToNum(Vector3 from)
@@ -284,17 +355,17 @@ public class Astar : MonoBehaviour
         newBlockData.Block = tempObj.GetComponent<Block>();
         // newBlockData.Block = Instantiate(Resources.Load("Block"), newPos, Quaternion.identity )as GameObject;
         newBlockData.Num = index;
-        newBlockData.HCount = -1;
-        newBlockData.GCount = -1;
+        newBlockData.HCount = -1.0f;
+        newBlockData.GCount = -1.0f;
         BlockList.Add(newBlockData);
     }
 
     private void calcCounts(BlockData Start, BlockData Goal, ref BlockData From) //시작 점, 도착점, 대상점
     {
         if (Start == null || Goal == null) return;
-        From.GCount = (int) Vector3.Distance(Start.Block.GetPos(), From.Block.GetPos());
+        From.GCount =  Vector3.Distance(Start.Block.GetPos(), From.Block.GetPos());
        // print("from Hcount => " + From.Hcount);
-        From.HCount = (int) Vector3.Distance(Goal.Block.GetPos(), From.Block.GetPos());
+        From.HCount =  Vector3.Distance(Goal.Block.GetPos(), From.Block.GetPos());
       //  print("from Fcount => " + From.Fcount);
     }
 
