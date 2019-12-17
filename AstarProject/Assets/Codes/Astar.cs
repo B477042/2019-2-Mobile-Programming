@@ -182,6 +182,8 @@ public class Astar : MonoBehaviour
     public LinkedList<BlockData>StartSearch(BlockData Start,BlockData Goal, SearchMode mode)
     {
         //A*를 이용하여 경로를 찾아준다
+        calcCounts(Start, Goal, ref Start);
+        Path.AddFirst(Start);
         searchPath(Start, Goal, mode);
         paintPath();
         return Path;
@@ -189,7 +191,7 @@ public class Astar : MonoBehaviour
     private void searchPath(BlockData Start, BlockData Goal, SearchMode Mode)
     {
         //재귀 호출의 종료
-        if (Start == Goal) return;
+        if (Path.Last.Value == Goal) return;
         /*
          - 작동 구조
          *      1) index node를 Start로 잡는다. 
@@ -243,28 +245,37 @@ public class Astar : MonoBehaviour
         
         */
         //Path경로 linked list의 첫 칸이 비었을 경우. 즉, 아무것도 없을 때
-        if (Path.First == null)
-        {
-            calcCounts(Start, Goal,ref Start);
-            Path.AddFirst(Start);
-            Path.AddLast(tempPathList.First());
-        }
-        //만약 Path 경로의 마지막 지점보다 적합성이 높다면 필요가 없다 return
-        else if (Path.Last.Value.GetGCount() < tempPathList.First().GetGCount())
-        {
-            Path.RemoveLast();
-            //return;
-        }
-        ////만약 같다면 그 길은 잘못됐다 pop
-        //else if (Path.Last.Value.GetGCount() == tempPathList.First().GetGCount())
+        //if (Path.First == null)
         //{
-        //    Path.RemoveLast();
+            
+        //    Path.AddLast(tempPathList.First());
         //}
-        else
+        //만약 Path 경로의 마지막 지점보다 적합성이 높다면 필요가 없다 return
+        if (Path.Last.Value.GetGCount() < tempPathList.First().GetGCount())
         {
-            Path.AddLast(tempPathList.First());
+            
+            return;
         }
-        searchPath(Path.Last.Value, Goal, Mode);
+        ////만약 갈 길이 막혔다면 그 길은 잘못됐다 pop
+        //else if (tempPathList.Count==0)
+        //{
+        //    print("it blocked");
+        //    return;
+        //}
+       // else
+       // {
+            
+        //}
+        //for(int i=Path.Count-1;i>=0;i+)
+      for(int i=0;i<tempPathList.Count;i++)
+        {
+            if (Path.Last.Value == Goal) return;
+            if (Path.Last.Value == tempPathList[i]) Path.RemoveLast();
+            searchPath(tempPathList[i], Goal, Mode);
+            Path.AddLast(tempPathList[i]);
+        }
+            
+       
     }
 
     private int vecToNum(Vector3 from)
@@ -559,15 +570,15 @@ public class Astar : MonoBehaviour
              
         }
 
-        for (int i=0;i<target.Count;i++)
+        for (int i = 0; i < target.Count; i++)
+        {
+            if (target[i].Block.IsWall())
             {
-                if(target[i].Block.IsWall())
-                {
                 print("this is wall!" + target[i].Num);
-                    target.RemoveAt(i);
-                    i--;
-                }
+                target.RemoveAt(i);
+                i--;
             }
+        }
         return target;
     }
     
