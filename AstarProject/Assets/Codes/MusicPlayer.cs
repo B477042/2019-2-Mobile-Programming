@@ -80,14 +80,14 @@ public class MusicPlayer : MonoBehaviour
         dicLines.Add(LineName.D, gameObject.AddComponent<MusicNodeLine>());
         dicLines.Add(LineName.F, gameObject.AddComponent<MusicNodeLine>());
 
-        print("Added");
+       // print("Added");
         for (int i=0;i<4;i++)
         {
             var index = (LineName)i;
             dicLines[index].LinePos = new Vector3(-10.0f + 2.0f * i, 0.0f, 0.0f);
             dicLines[index].LineSpawnPos= new Vector3(-10.0f + 2.0f * i, 10.0f, 0.0f);
             dicLines[index].SetLineName(index);
-            print(index.ToString() + "'s positon"+dicLines[index].LinePos);
+          //  print(index.ToString() + "'s positon"+dicLines[index].LinePos);
         }
     }
     public MusicNodeLine GetNodeLine(LineName name)

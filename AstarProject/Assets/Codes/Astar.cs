@@ -146,6 +146,7 @@ public class Astar : MonoBehaviour
             }
         }
 
+        readWallList(AstarData.Instance.WallList);
         //  print((BlockList[10] < BlockList[20]));
     }
 
@@ -208,8 +209,14 @@ public class Astar : MonoBehaviour
         foreach (var i in ablePathList)
         {
             var temp = findBlockByDirection(indexNode, i);
-            calcCounts(indexNode, Goal, ref temp);
-            tempPathList.Add(temp);
+            //print("temp의 객체 번호 : " + temp.Num);
+
+           
+                calcCounts(indexNode, Goal, ref temp);
+                 tempPathList.Add(temp);
+            
+
+            
 
         }
 
@@ -534,35 +541,9 @@ public class Astar : MonoBehaviour
     private List<BlockData> sortBlockDatasByCounts(ref List<BlockData> target)
     {
 
-        /*
-        //    for(int i=0;i<target.Count-1;i++)
-        //    {
-        //        BlockData smallData=new BlockData();
-
-        //        smallData.Copy(target[i]) ;
-
-        //        for (int j = i + 1; j < target.Count; j++)
-        //        {
-
-        //            if (smallData.GetGCount() >= target[j].GetGCount())
-        //            {
-        //                smallData .Copy( target[j]);
-        //                BlockData temp=new BlockData() ;
-        //                 temp.Copy(target[i]);
-        //                 target[i] .Copy( smallData);
-        //                  smallData.Copy(temp);
-        //            }
-
-
-        //        }
-
-
-
-        //    }*/
+       
             for (int i = 0; i < target.Count - 1; i++)
-        {
-            
-
+        { 
             for (int j = i + 1; j < target.Count; j++)
             {
 
@@ -575,13 +556,21 @@ public class Astar : MonoBehaviour
 
 
             }
-
-
-
-
+             
         }
+
+        for (int i=0;i<target.Count;i++)
+            {
+                if(target[i].Block.IsWall())
+                {
+                print("this is wall!" + target[i].Num);
+                    target.RemoveAt(i);
+                    i--;
+                }
+            }
         return target;
     }
+    
 
        private void paintPath()
     {
@@ -595,6 +584,16 @@ public class Astar : MonoBehaviour
         }
     }
 
-      
+
+
+    //Astart Data에 선언해둔 것으로 부터 읽어 들입니다.
+    private void readWallList(List<int> list)
+    {
+        foreach(var index in list)
+        {
+            BlockList[index].Block.ChangeToWall();
+        }
+    }
+    
 }
 

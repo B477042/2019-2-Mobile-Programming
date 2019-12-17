@@ -51,16 +51,16 @@ public class Block : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-       if(isChanged)
-        {
-            timer += Time.deltaTime;
-            if(timer>=max_timer)
-            {
-                ChangeToPlain();
-                isChanged = false;
-                timer = 0.0f;
-            }
-        }
+       //if(isChanged)
+       // {
+       //     timer += Time.deltaTime;
+       //     if(timer>=max_timer)
+       //     {
+       //         ChangeToPlain();
+       //         isChanged = false;
+       //         timer = 0.0f;
+       //     }
+       // }
     }
     public Vector3 GetPos() { return transform.position; }
     public Quaternion GetRot() { return transform.rotation; }
