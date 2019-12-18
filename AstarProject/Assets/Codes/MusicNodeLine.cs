@@ -34,7 +34,7 @@ public class MusicNodeLine : MonoBehaviour
 
     private const float PerfectRange = 0.0f;
 
-    private const float Interval = 2.0f;
+    private const float Interval = 2.0f;//블럭이 생성되는 간격
     private float timer;
     //각 줄에 대한 Linkedlist
     [SerializeField] public LinkedList<MusicNode> Line;
@@ -81,6 +81,7 @@ public class MusicNodeLine : MonoBehaviour
                 index.Drop( speed);
         }
 
+        //멀어지면 놔주기
         if (Line.First.Value.GetPos().y < 0.0f)
             Line.RemoveFirst();
     }

@@ -86,7 +86,7 @@ public class EventManger : MonoBehaviour
         //print("Contact!!");
         if (!eventDic.TryGetValue(eventType, out tempList))  return;
 
-        print("Activated Event!! name : " + eventType.ToString());
+       // print("Activated Event!! name : " + eventType.ToString());
         var listPointer = eventDic[eventType];
 
         foreach (var x in listPointer)

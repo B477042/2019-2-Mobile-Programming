@@ -74,7 +74,7 @@ public struct BlockData
 public class Astar : MonoBehaviour
 {
 
-    //이웃한 블럭들을 조사할 때, 만약 왼쪽 이웃이 벽이라면 left를 리턴 시키는 식으로 사용할 enum
+    //이웃한 블럭들을 조사할 때, 만약 왼쪽 이웃이 벽이라면 left를 리턴 시키는 식으로 사용할 enum -> 기각
     private enum neighborDirection
     {
         None,
@@ -148,7 +148,7 @@ public class Astar : MonoBehaviour
                 AddBlockFromMapToBlockList(X, Y);
             }
         }
-
+        //외부에서 데이터를 가져올 수 있게 만들것
         readWallList(AstarData.Instance.WallList);
         //  print((BlockList[10] < BlockList[20]));
     }

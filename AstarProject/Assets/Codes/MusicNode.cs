@@ -10,6 +10,7 @@ public class MusicNode : MonoBehaviour
     // Start is called before the first frame update
     private void Awake()
     {
+        //path의 색상을 로드
         paths = new List<Material>();
         for (int i = 0; i < 4; i++)
             paths.Add(Resources.Load("Path" + i) as Material);
@@ -26,6 +27,7 @@ public class MusicNode : MonoBehaviour
     {
         
     }
+    //path 타입에 맞게 생상을 바꿀 것
     public void ColorMatching()
     {
         gameObject.GetComponent<Renderer>().material = paths[0];
@@ -36,7 +38,7 @@ public class MusicNode : MonoBehaviour
     }
     public void PopNode()
     {
-        print("Die");
+      
         Destroy(gameObject);
     }
 
